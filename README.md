@@ -5,7 +5,7 @@
 ## Overview of our Repository
  * chasis - this folder contains the pictures of the chasis that we used on our robot.  
  * models - the 3d printable files used in our robot.
- * schemes - contains the schematics of the electrical systems.
+ * schematic - contains the schematic of the electrical system of our robot.
  * src - contains the main code of our robot.
  * experiments - codes that were used to do experiments.
  * video - contains the video link of youtube where our robot can be seened in action.
