@@ -1,7 +1,7 @@
 # wro_fe_2023 Engineering Documentation 
 ## Team Members:
 * A. N. M. Noor - email: nafis.noor.202012@gmail.com
-* Mir Muhammad Abidul Haq (Ahnaf) - email: abidulhaqahnaf@gmail.com
+* Mahir Tajwar Chowdhury - email: tajwar185@gmail.com
 
 ## Overview of our Repository
  * `chassis` - this folder contains the pictures of the chassis that we used on our robot.  
