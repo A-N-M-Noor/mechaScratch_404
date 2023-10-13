@@ -4,7 +4,6 @@
 * Mahir Tajwar Chowdhury - email: tajwar185@gmail.com
 
 ## Overview of our Repository
- * `chassis` - this folder contains the pictures of the chassis that we used on our robot.  
  * `models` - the 3D printable files used in our robot.
  * `schematic` - contains the schematic of the electrical system of our robot.
  * `src` - contains the main code of our robot.
