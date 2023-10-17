@@ -110,6 +110,31 @@ Install pyserial:
 pip3 install pyserial
 ```
 
+## Setting up the ESP32
+ESP32 is a pretty powerful microcontroller. It is a dual core 32bit MCU, that means we can run two loops in parallel whick would make our robot a lot faster. To keep it simple, we'll use the Arduino IDE to compile codes for ESP32 Microcontroller.
+
+### Installation
+* Download and install the [Arduino IDE](https://www.arduino.cc/en/software). As of now, the latest version is `2.2.1`, but it lags on a low end device. So install Legacy IDE (`1.8x`) for now.
+
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/51009def-76e4-4f8b-b5f6-feb5da4c1bc0)
+
+* In your Arduino IDE, go to File > Preferences, and enter the following into the "Additional Board Manager URLs" field, and click OK: 
+```
+https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+```
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/62fb46bc-5401-4412-be90-b38bb5d0a413)
+
+* Open the Arduino Boards Manager: `Tools > Board > Boards Manager...` and search for **ESP32**. Find the one named "ESP32 by Espressif Systems" and click on "Install".
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/d2d5850e-1a15-4024-96b8-57f9c464a54a)
+
+* Select your Board in `Tools > Board` menu. Select the one named "ESP32 Dev Module". This one works for almost every ESP32 board.
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/40ef4c0d-407d-467f-91c7-f47dd302f126)
+
+* When you'll need to upload a code, select the port from `Tools > Port` and hit upload.
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/3fb264b6-173a-4ae2-a552-cd9be82e8ba9)
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/f50c42d9-64d7-4af0-9547-e3d8492c68a5)
+
+Now, depending on what ESP32 board you're using, you might not be able to upload the code just yet. Install the [CP2102 Driver](https://www.silabs.com/documents/public/software/CP210x_Windows_Drivers.zip) and try again.
 _______
 
 Source:
