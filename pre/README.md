@@ -46,11 +46,11 @@ Now, Jetson comes with "Desktop Sharing" installed. But it fails due to a bug. T
 ```
 sudo apt install nano
 ```
-3. First, we will edit the _org.gnome.Vino_ schema, as it has a missing parameter called enabled. Open the schema:
+2. First, we will edit the _org.gnome.Vino_ schema, as it has a missing parameter called enabled. Open the schema:
 ```
 sudo nano /usr/share/glib-2.0/schemas/org.gnome.Vino.gschema.xml
 ```
-5. Add the missing key (any location will do):
+3. Add the missing key (any location will do):
 ```
 <key name='enabled' type='b'>
    <summary>Enable remote access to the desktop</summary>
@@ -66,16 +66,16 @@ sudo nano /usr/share/glib-2.0/schemas/org.gnome.Vino.gschema.xml
 ```
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 ```
-6. Update the Desktop Sharing settings. Your application should work now. Launch it from your Jetson Nano desktop and change the settings as it suits you.
-7. Setup the VNC server to autostart
+5. Update the Desktop Sharing settings. Your application should work now. Launch it from your Jetson Nano desktop and change the settings as it suits you.
+6. Setup the VNC server to autostart
    - Open the Startup Application Preferences panel
    - Add your VNC (Vino) entry: Add a name ('Vino'), a description (any text which makes sense to you) and the command: ```/usr/lib/vino/vino-server```. Close the app.
-8. Disable encryption for the VNC server
+7. Disable encryption for the VNC server
    ```
    gsettings set org.gnome.Vino require-encryption false
    gsettings set org.gnome.Vino prompt-enabled false
    ```
-10. Reboot
+8. Reboot
 
 After reboot, you can use any [VNCViewer](https://www.realvnc.com/en/connect/download/viewer/) from your laptop to connect to the shared screen.
 
@@ -109,3 +109,8 @@ Install pyserial:
 ```
 pip3 install pyserial
 ```
+
+
+Source:
+* [https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit](https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit)
+* [https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/](https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/)
