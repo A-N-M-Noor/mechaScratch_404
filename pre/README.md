@@ -51,7 +51,7 @@ sudo apt install nano
 sudo nano /usr/share/glib-2.0/schemas/org.gnome.Vino.gschema.xml
 ```
 3. Add the missing key (any location will do):
-```
+```XML
 <key name='enabled' type='b'>
    <summary>Enable remote access to the desktop</summary>
    <description>
