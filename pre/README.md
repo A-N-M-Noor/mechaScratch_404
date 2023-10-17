@@ -125,7 +125,7 @@ ESP32 is a pretty powerful microcontroller. It is a dual-core 32-bit MCU, which 
 ```
 https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
 ```
-![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/62fb46bc-5401-4412-be90-b38bb5d0a413)
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/1deebbbf-92e0-4f38-a313-d06a5578e660)
 
 * Open the Arduino Boards Manager: `Tools > Board > Boards Manager...` and search for **ESP32**. Find the one named "ESP32 by Espressif Systems" and click on "Install".
 ![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/d2d5850e-1a15-4024-96b8-57f9c464a54a)
