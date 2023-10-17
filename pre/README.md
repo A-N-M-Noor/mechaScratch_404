@@ -110,8 +110,8 @@ Install pyserial:
 pip3 install pyserial
 ```
 
+_______
 
----
 Source:
 * [https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit](https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit)
 * [https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/](https://raspberry-valley.azurewebsites.net/NVIDIA-Jetson-Nano/)
