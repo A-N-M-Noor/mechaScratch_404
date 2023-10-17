@@ -114,7 +114,7 @@ pip3 install pyserial
 ESP32 is a pretty powerful microcontroller. It is a dual core 32bit MCU, that means we can run two loops in parallel whick would make our robot a lot faster. To keep it simple, we'll use the Arduino IDE to compile codes for ESP32 Microcontroller.
 
 ### Installation
-* Download and install the [Arduino IDE](https://www.arduino.cc/en/software). As of now, the latest version is `2.2.1`, but it lags on a low end device. So install Legacy IDE (`1.8x`) for now.
+* Download and install the [Arduino IDE](https://www.arduino.cc/en/software). As of now, the latest version is `2.2.1`, but it lags on a low end device. So install the Legacy IDE (`1.8x`) for now.
 
 ![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/51009def-76e4-4f8b-b5f6-feb5da4c1bc0)
 
@@ -134,7 +134,7 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 ![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/3fb264b6-173a-4ae2-a552-cd9be82e8ba9)
 ![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/f50c42d9-64d7-4af0-9547-e3d8492c68a5)
 
-Now, depending on what ESP32 board you're using, you might not be able to upload the code just yet. Install the [CP2102 Driver](https://www.silabs.com/documents/public/software/CP210x_Windows_Drivers.zip) and try again.
+Now, depending on what ESP32 board you're using, you might not be able to upload the code just yet (There are some knock-off versions available in the market). Install the [CP2102 Driver](https://www.silabs.com/documents/public/software/CP210x_Windows_Drivers.zip) and try again. It should work now.
 _______
 
 Source:
