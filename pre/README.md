@@ -80,7 +80,7 @@ sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 After reboot, you can use any [VNCViewer](https://www.realvnc.com/en/connect/download/viewer/) from your laptop to connect to the shared screen.
 
 ### Python and Python Modules
-Jetson comes with Python 2.7 and Python3. For this project, we'll use Python3. But we'll need to install a few libraries.
+Jetson comes with Python 2.7 and Python 3. For this project, we'll use Python3. But we'll need to install a few libraries.
 * OpenCV
 * Numpy
 * pySerial
@@ -97,7 +97,7 @@ sudo apt install -y python3-pip
 sudo apt install build-essential libssl-dev libffi-dev python3-dev
 ```
 
-Now install openCV:
+Now install OpenCV:
 ```
 sudo apt install python3-opencv
 ```
@@ -111,10 +111,14 @@ pip3 install pyserial
 ```
 
 ## Setting up the ESP32
-ESP32 is a pretty powerful microcontroller. It is a dual core 32bit MCU, that means we can run two loops in parallel whick would make our robot a lot faster. To keep it simple, we'll use the Arduino IDE to compile codes for ESP32 Microcontroller.
+
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/742c8915-6679-4373-a92b-5f7ab0af59a0)
+
+
+ESP32 is a pretty powerful microcontroller. It is a dual-core 32-bit MCU, which means we can run two loops in parallel which would make our robot a lot faster. To keep it simple, we'll use the Arduino IDE to compile codes for the ESP32 Microcontroller.
 
 ### Installation
-* Download and install the [Arduino IDE](https://www.arduino.cc/en/software). As of now, the latest version is `2.2.1`, but it lags on a low end device. So install the Legacy IDE (`1.8x`) for now.
+* Download and install the [Arduino IDE](https://www.arduino.cc/en/software). As of now, the latest version is `2.2.1`, but it lags on a low-end device. So install the Legacy IDE (`1.8x`) for now.
 
 ![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/51009def-76e4-4f8b-b5f6-feb5da4c1bc0)
 
@@ -127,10 +131,18 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 * Open the Arduino Boards Manager: `Tools > Board > Boards Manager...` and search for **ESP32**. Find the one named "ESP32 by Espressif Systems" and click on "Install".
 ![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/d2d5850e-1a15-4024-96b8-57f9c464a54a)
 
-* Select your Board in `Tools > Board` menu. Select the one named "ESP32 Dev Module". This one works for almost every ESP32 board.
+* Install the necessary libraries:
+   - Go to `Sketch > Include Libraries > Manage Libraries...`
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/7d42419a-1a90-4b84-be27-7d867faaaf8e)
+   - Find and install **"ESP32Servo"** by _"Kevin Harrington"_ and **"NewPing"** by _"Tim Eckel"_.
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/94853da6-6f67-49e4-bb73-82e491525fd6)
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/8579493f-ba9f-4091-ab5d-c0f22b2c44a4)
+
+
+* Select your Board in the `Tools > Board` menu. Select the one named "ESP32 Dev Module". This one works for almost every ESP32 board.
 ![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/40ef4c0d-407d-467f-91c7-f47dd302f126)
 
-* When you'll need to upload a code, select the port from `Tools > Port` and hit upload.
+* When you need to upload a code, select the port from `Tools > Port` and hit upload.
 ![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/3fb264b6-173a-4ae2-a552-cd9be82e8ba9)
 ![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/f50c42d9-64d7-4af0-9547-e3d8492c68a5)
 
