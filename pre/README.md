@@ -112,8 +112,7 @@ pip3 install pyserial
 
 ## Setting up the ESP32
 
-![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/742c8915-6679-4373-a92b-5f7ab0af59a0)
-
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/b2427834-0830-4407-ba09-913bf4438765)
 
 ESP32 is a pretty powerful microcontroller. It is a dual-core 32-bit MCU, which means we can run two loops in parallel which would make our robot a lot faster. To keep it simple, we'll use the Arduino IDE to compile codes for the ESP32 Microcontroller.
 
