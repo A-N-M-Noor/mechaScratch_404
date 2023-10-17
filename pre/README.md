@@ -43,10 +43,14 @@ Now you'll be able to use the Jetson Nano as you would use any other Ubuntu PC. 
 ### Setting up VNC
 Now, Jetson comes with "Desktop Sharing" installed. But it fails due to a bug. To solve this issue -
 1. Install "nano", which is a command used to edit files from the terminal. To install "nano", open up a terminal and write
-```sudo apt install nano```
-2. First, we will edit the _org.gnome.Vino_ schema, as it has a missing parameter called enabled. Open the schema:
-```sudo nano /usr/share/glib-2.0/schemas/org.gnome.Vino.gschema.xml```
-3. Add the missing key (any location will do):
+```
+sudo apt install nano
+```
+3. First, we will edit the _org.gnome.Vino_ schema, as it has a missing parameter called enabled. Open the schema:
+```
+sudo nano /usr/share/glib-2.0/schemas/org.gnome.Vino.gschema.xml
+```
+5. Add the missing key (any location will do):
 ```
 <key name='enabled' type='b'>
    <summary>Enable remote access to the desktop</summary>
@@ -59,14 +63,49 @@ Now, Jetson comes with "Desktop Sharing" installed. But it fails due to a bug. T
 </key>
 ```
 4. Compile the new Gnome schema configuration:
-```sudo glib-compile-schemas /usr/share/glib-2.0/schemas```
-5. Update the Desktop Sharing settings. Your application should work now. Launch it from your Jetson Nano desktop and change the settings as it suits you.
-6. Setup the VNC server to autostart
+```
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+```
+6. Update the Desktop Sharing settings. Your application should work now. Launch it from your Jetson Nano desktop and change the settings as it suits you.
+7. Setup the VNC server to autostart
    - Open the Startup Application Preferences panel
    - Add your VNC (Vino) entry: Add a name ('Vino'), a description (any text which makes sense to you) and the command: ```/usr/lib/vino/vino-server```. Close the app.
-7. Disable encryption for the VNC server
-   - ```gsettings set org.gnome.Vino require-encryption false```
-   - ```gsettings set org.gnome.Vino prompt-enabled false```
-8. Reboot
+8. Disable encryption for the VNC server
+   ```
+   gsettings set org.gnome.Vino require-encryption false
+   gsettings set org.gnome.Vino prompt-enabled false
+   ```
+10. Reboot
 
 After reboot, you can use any [VNCViewer](https://www.realvnc.com/en/connect/download/viewer/) from your laptop to connect to the shared screen.
+
+### Python and Python Modules
+Jetson comes with Python 2.7 and Python3. For this project, we'll use Python3. But we'll need to install a few libraries.
+* OpenCV
+* Numpy
+* pySerial
+
+First, update and upgrade your package manager:
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+
+Install 'pip' aka python package manager, and build-essentials:
+```
+sudo apt install -y python3-pip
+sudo apt install build-essential libssl-dev libffi-dev python3-dev
+```
+
+Now install openCV:
+```
+sudo apt install python3-opencv
+```
+Install numpy:
+```
+pip3 install numpy
+```
+Install pyserial:
+```
+pip3 install pyserial
+```
