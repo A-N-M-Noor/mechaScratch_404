@@ -31,6 +31,7 @@ Press 's' on your keyboard to print the HSV range in the terminal. Copy this val
 
 6. `camThreading.py`:
    - Purpose: This code uses two cameras (Webcam and pi camera) simultaneously using threading
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/75e8cd11-6270-4a53-b95f-83817e04003b)
 
-
+____
 These experiments were conducted separately to ensure that each component and feature operates as expected in isolation. Such a systematic approach to testing ensures that the various elements of the robot's system are thoroughly examined and verified before integration into the final design.
