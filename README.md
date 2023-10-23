@@ -81,8 +81,12 @@ Once again, the ESP32's primary core handles the calculations and decision-makin
 ## Electrical design of our robot.
 In order to achieve the highest possible efficiency and reliability, we have spent several hundred hours researching and developing the parts. The following paragraphs provide detailed information about electrical systems design.
 
-### Parts list
+### Electronics Parts list
+* Jetson Nano Developer Kit (4GB)
 * Esp32 Development Board
+* USB to TTL Serial Converter
+* Micropack MWB-15 Pro FHD 2MP Stream Webcam
+* Raspberry Pi Camera Module v2.1
 * 500 rpm 25GA 12V DC Gear Motor
 * DS3235 Servo
 * 5xHC-SR04 Ultrasonic Sensors
@@ -91,11 +95,28 @@ In order to achieve the highest possible efficiency and reliability, we have spe
 * 3.0 USB Type-C Buck module
 * XL6009 Buck Boost Module
 * 3S LiPo battery input through XT60 Connector
+* Mini Rocker Switch
+* Push Button
+* LED (3mm)
+* Electrolytic Capacitor (1000μF, 4700μF, 470μF)
 
 ## Mechanical Design
 We've made our robot totally from scratch. Most of the parts of our robot are 3D printed, starting from chassis, wheels, and so on.
 
-### Design Decisions
+### Mechanical Parts List
+* Axial Bearing (8mm x 16mm x 5mm)
+* Axial Flange Bearing (3mm x 8mm x 4mm)
+* M3x10 bolt
+* M3x20 bolt
+* M3x30 bolt
+* M3x50 bolt
+* M3x70 bolt
+* M3 nut
+* M2x10 bolt
+* M2 nut
+* M3x20 Hex Spacer 
+
+## Design Decisions
 * We've designed a sonar mount which is mounted at the front and the side of the robot where the front-left and front-right sonar sensors are mounted at an angle of 52.5 degrees. Based on our testing, this is the optimal angle for the sonars to detect walls ahead of time, giving the bot enough time to react.
 * We're using a Jetson Nano to handle the image processing algorithms. The Jetson Nano uses two cameras to detect towers and corner lines and sends the data to ESP32 via serial communication.
 * The front axle is being articulated by the Servo Motor.
