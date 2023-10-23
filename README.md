@@ -50,7 +50,7 @@ In our case, the value of ‘k’ is 2141. Using this value in the equation roug
 
 
 #### Avoiding walls:
-This is done the same way as in the [qualifying round](https://github.com/Ahnaf-nub/mechaScratch404#qualifying-round).
+This is done the same way as in the [qualifying round](https://github.com/A-N-M-Noor/mechaScratch_404/tree/main#avoiding-walls).
 
 #### Avoiding towers:
 After obtaining the initial steer and throttle values from the sonar sensors, the program proceeds to adjust these values based on the presence of red and green towers in the environment.
@@ -71,7 +71,7 @@ Additionally, if any object, such as a wall or tower, approaches closer to the r
 
 
 #### Lap count:
-This is done the same way as in the [qualifying round](https://github.com/Ahnaf-nub/mechaScratch404#qualifying-round).
+This is done the same way as in the [qualifying round](https://github.com/A-N-M-Noor/mechaScratch_404/tree/main#lap-count).
 
 #### U-turn:
 After completing the second lap, which corresponds to the 8th turn, the program saves the type of the last detected object. If this last object is determined to be red, the robot does a full 180-degree turn, accomplished through the MPU, reversing its orientation. Following this 180-degree turn, the robot resumes its normal operation, continuing with its regular navigation and obstacle avoidance methods.
