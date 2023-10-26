@@ -107,15 +107,11 @@ We've made our robot totally from scratch. Most of the parts of our robot are 3D
 ### Mechanical Parts List
 * Axial Bearing (8mm x 16mm x 5mm)
 * Axial Flange Bearing (3mm x 8mm x 4mm)
-* M3x10 bolt
-* M3x20 bolt
-* M3x30 bolt
-* M3x50 bolt
-* M3x70 bolt
+* M3 bolt
 * M3 nut
-* M2x10 bolt
+* M2 bolt
 * M2 nut
-* M3x20 Hex Spacer 
+* M3 Hex Spacer
 
 ## Design Decisions
 * We've designed a sonar mount which is mounted at the front and the side of the robot where the front-left and front-right sonar sensors are mounted at an angle of 52.5 degrees. Based on our testing, this is the optimal angle for the sonars to detect walls ahead of time, giving the bot enough time to react.
@@ -130,4 +126,4 @@ The fundamental idea behind Ackerman steering is that the inner and outer wheels
 ![image](https://github.com/Ahnaf-nub/Mecha-404/assets/76505613/5aab9af5-65b7-4ce1-a794-1a9a6564b4d6)
 
 * We also used a differential gearbox for the rear wheels. Although it uses a single DC motor, its primary purpose is to enable the wheels on a single axle to rotate at different speeds while receiving power from the engine and transmission. This crucial function allows for smooth and stable operation, particularly when the vehicle is turning. The differential works by distributing power from the input (usually the driveshaft) to the wheels through a system of gears, including a ring gear, side gears, and spider gears, all contained within a lubricated housing. It ensures that both wheels receive power, improving traction and stability, even in situations where one wheel loses traction. Different types of differentials are available to suit various vehicle needs and driving conditions, such as open differentials, limited-slip differentials, and locking differentials.
-
+![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/ccd4dbc3-0f39-403d-814e-50581b134f64)
