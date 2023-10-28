@@ -1,21 +1,23 @@
-float throttle = 0;
-float steer = 0;
-float throttleMult = 1;
-int steerAngle = 30;
+float targetThrottle = 0, throttle = 0;
+int pwmVal = 0;
+float targetSteer = 0, steer = 0;
+float throttleMult = 0.7;
+int steerAngle = 20;
 int steerMultiplier = 1; // set it to -1 if the steer is reversed
-int steerOffset = 5;
+int steerOffset = 7;
 
 float throttleSmoothing = 0.6;
-float steerSmoothing = 0.5;
+float steerSmoothing = 1;
 
 int turnCount = 0;
-int totalTurns = 12;
+int totalTurns = 2;
 long lastTurnTimer;
-int lastTurnTime = 6000;
+int lastTurnTime = 1300;
 boolean finished = false;
 
-long rDmin[] = {2, 2, 2};    //Minimum distance range for {Side, Angle, Forward}
-long rDmax[] = {60, 70, 60}; //Maximum distance range for {Side, Angle, Forward}
+int rDmin[] = {4, 4, 15};    //Minimum distance range for {Side, Angle, Forward}
+int rDmax[] = {90, 110, 80, 30}; //Maximum distance range for {Side, Angle, Forward}
+int reactionDist = 10;
 
 TaskHandle_t handleSonar;
 
@@ -23,33 +25,25 @@ TaskHandle_t handleSonar;
 #include <NewPing.h>
 
 #define MAX_DISTANCE 120
-
-NewPing sonars[] = {
-  NewPing(26, 26, MAX_DISTANCE),
-  NewPing(27, 27, MAX_DISTANCE),
-  NewPing(32, 32, MAX_DISTANCE),
-  NewPing(33, 33, MAX_DISTANCE),
-  NewPing(25, 25, MAX_DISTANCE)
-};
-
+int sPins[] = {32, 27, 26, 25, 33};
 long dists[] = {0, 0, 0, 0, 0};
 // ---------------------------------- Sonar ---------------------------------- //
 //                               ---------------                               //
 // ---------------------------------- Motor ---------------------------------- //
-#define motPWM 4
-#define motA 17
-#define motB 16
+#define motPWM 18
+#define motA 21
+#define motB 19
 // ---------------------------------- Motor ---------------------------------- //
 //                               ---------------                               //
 // ---------------------------------- Servo ---------------------------------- //
 #include <ESP32Servo.h>
 
 Servo s;
-#define servoPin 18
+#define servoPin 23
 // ---------------------------------- Servo ---------------------------------- //
 //                               ---------------                               //
 // ----------------------------------- Btn ----------------------------------- //
-#define btnPin 19
+#define btnPin 4
 // ----------------------------------- Btn ----------------------------------- //
 //                               ---------------                               //
 // ----------------------------------- MPU ----------------------------------- //
@@ -61,16 +55,32 @@ long lastAngle;
 long currentAngle;
 // ----------------------------------- MPU ----------------------------------- //
 //                               ---------------                               //
+// ----------------------------------- COM ----------------------------------- //
+#define RXD2 16
+#define TXD2 17
+
+long serialTimer;
+int key = 0;
+
+int lineAng = 0;
+int trackDir = 0;
+// ----------------------------------- COM ----------------------------------- //
+//                               ---------------                               //
 // -------------------------------- INDICATOR -------------------------------- //
 #define RED 15
 #define GREEN 2
+#define buzz 13
+
+long buzzTimer = 0;
 
 void setup() {
   Serial.begin(115200);
-
+  Serial2.begin(115200, SERIAL_8N1, RXD2, TXD2);
+  
   xTaskCreatePinnedToCore(loopB,    "secondJob", 4096,   NULL,      1,        &handleSonar,            0);
   //                     (function, task name,   memory, parameter, priority, task reference,          core)
 
+  Serial2.print("S");
   pinMode(motPWM, OUTPUT);
   pinMode(motA, OUTPUT);
   pinMode(motB, OUTPUT);
@@ -82,156 +92,72 @@ void setup() {
 
   pinMode(RED, OUTPUT);
   pinMode(GREEN, OUTPUT);
+  pinMode(buzz, OUTPUT);
 
-  //Wire.begin();
-  //byte status = mpu.begin();
+
+  Wire.begin();
+  byte status = mpu.begin();
   Serial.print(F("MPU6050 status: "));
-  //Serial.println(status);
+  Serial.println(status);
   //while(status!=0){ }
-  digitalWrite(GREEN, HIGH);
-
+  //digitalWrite(GREEN, HIGH);
   Serial.println(F("Calculating offsets"));
   // mpu.upsideDownMounting = true;
   //mpu.calcOffsets();
   Serial.println("Done!\n");
+
+  
   while (digitalRead(btnPin) == 0) { } // wait untill the button is pressed
-  delay(1000);
+  delay(300);
   digitalWrite(GREEN, LOW);
 
+  Serial2.print("S");
+  serialTimer = millis();
+    
   //currentAngle = mpu.getAngleZ();
   lastAngle = currentAngle;
 }
 
 void loop() {
-  //mpu.update();
-  //currentAngle = mpu.getAngleZ();
-  if (abs(lastAngle - currentAngle) > 90) {
-    turnCount ++;
-    lastAngle = currentAngle;
+  //getMPU();
+  if(millis() - buzzTimer < 200){
+    digitalWrite(buzz, HIGH);
+  }else if(!finished){
+    digitalWrite(buzz, LOW);
   }
+  
   if (!finished && turnCount >= totalTurns) { // if the car finishes three laps
     finished = true;
     lastTurnTimer = millis();
+    digitalWrite(buzz, HIGH);
   }
 
   setControls();
-  throttle = clamp(throttle, 0, 1);
-  steer = clamp(steer, -1, 1);
-
   thrFromStr();
+
+  targetThrottle = clamp(targetThrottle, 0, 1);
+  targetSteer = clamp(targetSteer, -1, 1);
+  
+  throttle = lerpF(throttle, targetThrottle, throttleSmoothing);
+  steer = lerpF(steer, targetSteer, steerSmoothing);
+  
   setThrottleSteer(throttle, steer);
 
   if (finished && millis() - lastTurnTimer > lastTurnTime) { // Run another <lastTurnTime> milliseconds
-    setThrottleSteer(0, 0); // stop the car
     digitalWrite(GREEN, HIGH);
-    while (digitalRead(btnPin) == 0) { } // wait untill the button is pressed
-    delay(1000);
-
-    currentAngle = mpu.getAngleZ();
-    lastAngle = currentAngle;
-    turnCount = 0;
-    finished = false;
+    digitalWrite(buzz, LOW);
+    setThrottleSteer(0, 0);
+    delay(50);
+    exit(0);
   }
 }
 
 void loopB(void * param) {
   while (true) {
     getDistanceValues();
+    printDistanceValues();
+    delay(10);
+    getSerialInfo();
+    printSerialInfo();
   }
-}
-
-
-void setControls() {
-  float _thr = 1;
-  float _steer = 0;
-
-  if (dists[0] < rDmax[0]) {
-    float vl = mapFC(dists[0], rDmin[0], rDmax[0], 0.4, 0);
-    _steer -= vl * vl;
-  }
-  if (dists[1] < rDmax[1]) {
-    float vl = mapFC(dists[1], rDmin[1], rDmax[1], 0.6, 0);
-    _steer -= vl * vl;
-  }
-
-  if (dists[3] < rDmax[1]) {
-    float vl = mapFC(dists[3], rDmin[1], rDmax[1], 0.6, 0);
-    _steer += vl * vl;
-  }
-  if (dists[4] < rDmax[0]) {
-    float vl = mapFC(dists[4], rDmin[0], rDmax[0], 0.4, 0);
-    _steer += vl * vl;
-  }
-
-
-  if (dists[2] < rDmax[2]) {
-    _thr -= mapFC(dists[2], rDmin[2], rDmax[2], 1, 0);
-    _steer *= mapFC(dists[2], rDmin[2], rDmax[2]*3, 3.5, 1);
-  }
-  throttle = lerpF(throttle, _thr, throttleSmoothing);
-  steer = lerpF(steer, _steer, steerSmoothing);
-}
-
-void thrFromStr(){
-  throttle *= mapFC(abs(steer), 0, 1, 1, 0.6);
-}
-
-void getDistanceValues() {
-  long sonarTimer = millis();
-  Serial.print("Sonar Values: ");
-  for (int i = 0; i < 5; i++) {
-    dists[i] = sonars[i].ping_cm();
-    if (dists[i] == 0) {
-      dists[i] = MAX_DISTANCE;
-    }
-    Serial.print(dists[i]);
-    Serial.print(" - ");
-  }
-  Serial.println(" | ");
-  delay(10);
-  while (millis() - sonarTimer < 15) { } // ensures a 30ms delay between pings per sonar
-}
-
-void setThrottleSteer(float _thr, float _str) {
-  _thr *= throttleMult;
-  Serial.println(int(_thr * 255));
-  if (_thr == 0) {
-    digitalWrite(motA, LOW);
-    digitalWrite(motB, LOW);
-  }
-  else if (_thr > 0) {
-    digitalWrite(motA, HIGH);
-    digitalWrite(motB, LOW);
-    analogWrite(motPWM, int(_thr * 255));
-  }
-  else {
-    digitalWrite(motA, LOW);
-    digitalWrite(motB, HIGH);
-    analogWrite(motPWM, int(-_thr * 255));
-  }
-
-  s.write(90 + _str * steerAngle * steerMultiplier + steerOffset);
-}
-
-float mapF(float x, float in_min, float in_max, float out_min, float out_max) {
-  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
-
-float mapFC(float x, float in_min, float in_max, float out_min, float out_max) {
-  return clamp( mapF(x, in_min, in_max, out_min, out_max), out_min, out_max);
-}
-
-float clamp(float val, float mini, float maxi) {
-  if (val < mini) {
-    return mini;
-  }
-  if (val > maxi) {
-    return maxi;
-  }
-  return val;
-}
-
-float lerpF(float a, float b, float t)
-{
-  return a + t * (b - a);
 }
