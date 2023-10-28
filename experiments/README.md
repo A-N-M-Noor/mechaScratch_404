@@ -12,9 +12,13 @@
    - Purpose: This experiment aimed to evaluate the MPU-6050 module's gyro values and explore the functionality of the ESP32 microcontroller's free RTOS, utilizing both of its cores.
    - Procedure: The code continuously reads and prints gyro values from the MPU-6050 module at specified intervals, showcasing the utilization of the microcontroller's dual-core capabilities.
 
-4. `Sonar5x`:
+4. `SerialSteer`:
+   - Purpose: This code allows fine-tuning the servo angles to calibrate the steering.
+   - Procedure: With the steering assembled, upload the code. Then remove the servo head from the servo, and power up the microcontroller. Open up the serial monitor and set the angle to 90. Then connect the servo head and adjust the steering angle.
+
+5. `Sonar5x`:
    - Purpose: This experiment focused on the ultrasonic distance sensors.
-   - Procedure: The code retrieves distance values from all five sonar sensors and displays them in the serial monitor, facilitating a comprehensive assessment of their functionality.
+   - Procedure: The code retrieves distance values from all five sonar sensors and displays them in the serial monitor.
 ____
 
 ### Jetson Nano
