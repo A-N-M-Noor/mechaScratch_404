@@ -1,11 +1,21 @@
-# wro_fe_2023 Engineering Documentation / Team mechaScratch_404
-![mecha scratch main](https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/82dec0fd-90a3-4080-8b9e-d6446caba096)
+# wro_fe_2023 Engineering Documentation / PERA-METER / Team mechaScratch_404
+----
+ <!-- ![mecha scratch main](https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/82dec0fd-90a3-4080-8b9e-d6446caba096)   -->
+![mecha scratch main](https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/00ac4db6-d1b9-4817-b925-19fcd10ec175)
+
+### This repository is the collection of engineering materials pertaining to PERA-METER, a self-driving vehicle model developed by Team mechaScratch_404, participating in the 2023 WRO International Final (Future Engineers).
+----
 
 ## Team Members:
-> A. N. M. Noor - email: noornoorrohan15@gmail.com
- 
+> A. N. M. Noor, email: noornoorrohan15@gmail.com
+
 > Mahir Tajwar Chowdhury - email: tajwar185@gmail.com
 
+
+----
+
+ <!--  <img align="left" alt="NAUT" width="340" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/7f8c3910-39dc-47d4-9438-62cf6487e162">  -->
+<img align="left" alt="NAUT" width="340" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/3ead5bf0-d82a-4c44-bdc3-7c9126db78a8">
 
 ## Overview of our Repository
  * `chassis` - this folder contains the pictures of the chassis that we used on our robot.
@@ -20,6 +30,10 @@
  * `others` - other essential photos.
 
 ## Program infrastructure and explanation of algorithm.
+
+<img align="right" alt="bleh" width="370" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/6fd78bbe-044a-406e-8ab0-89463a3098b5">
+
+
 
 ### Qualifying Round
 #### Avoiding walls:
@@ -42,12 +56,14 @@ At present, the robot uses OpenCV for detecting red and green towers. The Jetson
 
     distance = k/width
 
-The value of ‘k’ was determined by plotting real-life data on a graph.
-![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/a00f20ec-0540-41f9-9b10-cbe79204a923)
 
-![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/d5fe1201-4117-4909-a40a-e25a78df4304)
+<img align="left" alt="NAUT" width="500" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/a00f20ec-0540-41f9-9b10-cbe79204a923">
+<img align="center" alt="NAUT" width="320" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/d5fe1201-4117-4909-a40a-e25a78df4304">
+______________________________________________________The value of ‘k’ was determined by plotting real-life data on a graph.
 
-In our case, the value of ‘k’ is 2141. Using this value in the equation roughly matches the real-life data acquired from experiments.
+
+In our case, the value of ‘k’ is 2141. Using this value in the equation roughly matches the real-life data acquired from
+experiments.
 
 
 #### Avoiding walls:
@@ -123,7 +139,7 @@ We've made our robot totally from scratch. Most of the parts of our robot are 3D
 * Two buck module is used. One is for getting a constant 6V for the Servo, and the other one is for getting a constant 5V for the Jetson Nano as well as the ESP32.
 * We used Ackerman steering as it is a vital steering geometry concept that enhances the handling and cornering performance of vehicles, making them safer and more efficient on the road. Ackerman steering, also known as Ackerman geometry or Ackerman principle, is a steering mechanism that is used in vehicles in order to enable proper turning of the wheels while maintaining optimal geometry and minimizing tire scrubbing during turns. It is commonly used in most modern vehicles, including cars, trucks, and other wheeled vehicles.
 The fundamental idea behind Ackerman steering is that the inner and outer wheels of a vehicle must follow different turning radii during a turn, considering the varying angles of the front wheels. When a vehicle turns, the inner wheel needs to negotiate a tighter radius than the outer wheel to maintain a smooth turn without dragging or scuffing the tires. The Ackerman steering mechanism achieves this by using a steering linkage that connects the wheels. Typically, it consists of two tie rods connected to the steering arms on each wheel. The tie rods are connected to a central steering mechanism, such as a steering rack or a pitman arm, which is controlled by the driver. As the driver turns the steering wheel, the steering mechanism transfers the motion to the tie rods, causing the wheels to rotate accordingly. The geometry of the Ackerman steering mechanism ensures that the inner wheel turns at a sharper angle compared to the outer wheel, allowing both wheels to trace their respective turning radii accurately. By implementing Ackerman steering, vehicles can achieve better maneuverability, stability, and reduced tire wear during turns. It ensures that all wheels maintain proper contact with the road surface and minimizes the likelihood of skidding or slipping during turns.
-![image](https://github.com/Ahnaf-nub/Mecha-404/assets/76505613/5aab9af5-65b7-4ce1-a794-1a9a6564b4d6)
+<img width="800" src="https://github.com/Ahnaf-nub/Mecha-404/assets/76505613/5aab9af5-65b7-4ce1-a794-1a9a6564b4d6">
 
 * We also used a differential gearbox for the rear wheels. Although it uses a single DC motor, its primary purpose is to enable the wheels on a single axle to rotate at different speeds while receiving power from the engine and transmission. This crucial function allows for smooth and stable operation, particularly when the vehicle is turning. The differential works by distributing power from the input (usually the driveshaft) to the wheels through a system of gears, including a ring gear, side gears, and spider gears, all contained within a lubricated housing. It ensures that both wheels receive power, improving traction and stability, even in situations where one wheel loses traction. Different types of differentials are available to suit various vehicle needs and driving conditions, such as open differentials, limited-slip differentials, and locking differentials.
-![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/ccd4dbc3-0f39-403d-814e-50581b134f64)
+<img  width="800" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/ccd4dbc3-0f39-403d-814e-50581b134f64">
