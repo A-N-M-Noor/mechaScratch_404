@@ -30,7 +30,11 @@
  * `t-photos` - contains one serious and one funny photo of our team.
  * `v-photos` - contains the photos of the robot from all required directions
  * `others` - other essential photos.
-
+----
+----
+----
+----
+----
 ## Program infrastructure and explanation of algorithm.
 
 <img align="right" alt="bleh" width="400" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/6fd78bbe-044a-406e-8ab0-89463a3098b5">
