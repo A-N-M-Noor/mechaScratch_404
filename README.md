@@ -68,7 +68,7 @@ At present, the robot uses OpenCV for detecting red and green towers. The Jetson
 
 <img align="left" alt="NAUT" width="500" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/a00f20ec-0540-41f9-9b10-cbe79204a923">
 <img align="center" alt="NAUT" width="220" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/d5fe1201-4117-4909-a40a-e25a78df4304">
-______________________________________________________The value of ‘k’ was determined by plotting real-life data on a graph.
+The value of ‘k’ was determined by plotting real-life data on a graph.
 
 
 In our case, the value of ‘k’ is 2141. Using this value in the equation roughly matches the real-life data acquired from
