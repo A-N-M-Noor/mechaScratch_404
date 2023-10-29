@@ -71,6 +71,7 @@ At present, the robot uses OpenCV for detecting red and green towers. The Jetson
 ____________The value of ‘k’ was determined by plotting real-life data from
 experiments on a graph. In our case, the value of ‘k’ is 2141. Using this value in the equation roughly matches the real-life data.
 
+----
 
 #### Avoiding walls:
 This is done the same way as in the [qualifying round](https://github.com/A-N-M-Noor/mechaScratch_404/tree/main#avoiding-walls).
