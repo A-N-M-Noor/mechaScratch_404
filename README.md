@@ -15,9 +15,11 @@
 ----
 
  <!--  <img align="left" alt="NAUT" width="340" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/7f8c3910-39dc-47d4-9438-62cf6487e162">  -->
-<img align="right" alt="NAUT" width="350" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/3ead5bf0-d82a-4c44-bdc3-7c9126db78a8">
+
 
 ## Overview of our Repository
+<img align="right" alt="NAUT" width="350" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/3ead5bf0-d82a-4c44-bdc3-7c9126db78a8">
+
  * `chassis` - this folder contains the pictures of the chassis that we used on our robot.
  * `experiments` - codes that were used to do experiments.  
  * `models` - the 3D printable files used in our robot.
