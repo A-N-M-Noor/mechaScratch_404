@@ -1,5 +1,5 @@
 # wro_fe_2023 Engineering Documentation / Team mechaScratch_404
-![MechaScratchDesigns_Banner](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/5263b2ff-3015-4e81-8cf8-bcd7ea9b7d92)
+![mecha scratch main](https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/82dec0fd-90a3-4080-8b9e-d6446caba096)
 
 ## Team Members:
 > A. N. M. Noor - email: noornoorrohan15@gmail.com
