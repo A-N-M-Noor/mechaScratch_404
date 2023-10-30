@@ -22,7 +22,7 @@
 
  * `experiments` - codes that were used to do experiments.  
  * `models` - the 3D printable files used in our robot.
- * `pre` - getting started guide.
+ * `getting started` - getting started guide.
  * `schematic` - contains the schematic of the electrical system of our robot.
  * `src` - contains the main code of our robot.
  * `video` - contains the video link of YouTube where our robot can be seen in action.
@@ -54,7 +54,7 @@ In the case of the front sensor, its remapped value is employed to diminish the 
 This comprehensive sensor-driven control scheme ensures that the robot can effectively navigate and respond to its environment, making it capable of avoiding obstacles and adjusting its course as needed.
 
 #### Lap count:
-The Jetson Nano constantly looks for the corner lines using the rear camera. Whenever it sees an orange and a blue line, it sends the data to the ESP32 and increases the turn count by one. To achieve the goal of completing three laps, the robot must complete 12 turns in total.
+The Jetson Nano constantly looks for the corner lines using the camera. If the first line is blue, then the robot is going counter-clockwise, and if the first line is orange, then the robot is goin clockwise. After determining the direction, then the program looks for the second line. Whenever it sees a line matching the color of the second line, it sends the data to the ESP32 and increases the turn count by one. To achieve the goal of completing three laps, the robot must complete 12 turns in total.
 Therefore, when the turn count reaches the value of 12, the program triggers the robot to operate under normal conditions for a predetermined duration. After that, the robot comes to a halt, having successfully completed three laps.
 
 The robot harnesses the processing power of both cores of the ESP32 microcontroller by using FreeRTOS, a real-time operating system. The primary core handles all logical operations and calculations, ensuring the swift execution of tasks. Simultaneously, a separate core is dedicated to acquiring sensor data, allowing for rapid data retrieval. This dual-core configuration enables the robot to perform calculations and make decisions with remarkable speed and efficiency.
@@ -109,7 +109,6 @@ In order to achieve the highest possible efficiency and reliability, we have spe
 * Esp32 Development Board
 * USB to TTL Serial Converter
 * Micropack MWB-15 Pro FHD 2MP Stream Webcam
-* Raspberry Pi Camera Module v2.1
 * 500 rpm 25GA 12V DC Gear Motor
 * DS3235 Servo
 * 5xHC-SR04 Ultrasonic Sensors
@@ -121,7 +120,7 @@ In order to achieve the highest possible efficiency and reliability, we have spe
 * Mini Rocker Switch
 * Push Button
 * LED (3mm)
-* Electrolytic Capacitor (1000μF, 4700μF, 470μF)
+* Electrolytic Capacitor (1000μF)
 
 ## Mechanical Design
 We've made our robot totally from scratch. Most of the parts of our robot are 3D printed, starting from chassis, wheels, and so on.
@@ -147,5 +146,5 @@ We've made our robot totally from scratch. Most of the parts of our robot are 3D
 The fundamental idea behind Ackerman steering is that the inner and outer wheels of a vehicle must follow different turning radii during a turn, considering the varying angles of the front wheels. When a vehicle turns, the inner wheel needs to negotiate a tighter radius than the outer wheel to maintain a smooth turn without dragging or scuffing the tires. The Ackerman steering mechanism achieves this by using a steering linkage that connects the wheels. Typically, it consists of two tie rods connected to the steering arms on each wheel. The tie rods are connected to a central steering mechanism, such as a steering rack or a pitman arm, which is controlled by the driver. As the driver turns the steering wheel, the steering mechanism transfers the motion to the tie rods, causing the wheels to rotate accordingly. The geometry of the Ackerman steering mechanism ensures that the inner wheel turns at a sharper angle compared to the outer wheel, allowing both wheels to trace their respective turning radii accurately. By implementing Ackerman steering, vehicles can achieve better maneuverability, stability, and reduced tire wear during turns. It ensures that all wheels maintain proper contact with the road surface and minimizes the likelihood of skidding or slipping during turns.
 <img width="800" src="https://github.com/Ahnaf-nub/Mecha-404/assets/76505613/5aab9af5-65b7-4ce1-a794-1a9a6564b4d6">
 
-* We also used a differential gearbox for the rear wheels. Although it uses a single DC motor, its primary purpose is to enable the wheels on a single axle to rotate at different speeds while receiving power from the engine and transmission. This crucial function allows for smooth and stable operation, particularly when the vehicle is turning. The differential works by distributing power from the input (usually the driveshaft) to the wheels through a system of gears, including a ring gear, side gears, and spider gears, all contained within a lubricated housing. It ensures that both wheels receive power, improving traction and stability, even in situations where one wheel loses traction. Different types of differentials are available to suit various vehicle needs and driving conditions, such as open differentials, limited-slip differentials, and locking differentials.
+* We also used a differential gearbox for the rear wheels. Although it uses a single DC motor, its primary purpose is to enable the wheels on a single axle to rotate at different speeds while receiving power from the engine and transmission. This crucial function allows for smooth and stable operation, particularly when the vehicle is turning. The differential works by distributing power from the input (usually the driveshaft) to the wheels. It ensures that both wheels receive power depending on the direction it's turning.
 <img  width="800" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/ccd4dbc3-0f39-403d-814e-50581b134f64">
