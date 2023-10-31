@@ -6,7 +6,7 @@ void getDistanceValues() {
   while (millis() - sonarTimer < 15) { }
 }
 
-void printDistanceValues(){
+void printDistanceValues() {
   Serial.print("Sonar Values: ");
   for (int i = 0; i < 5; i++) {
     Serial.print(dists[i]);
@@ -32,37 +32,46 @@ int getDistS(int te) {
 }
 
 
-void getSerialInfo(){
-  if(millis() - serialTimer > 15){
+void getSerialInfo() {
+  if (millis() - serialTimer > 15) {
     //Serial.println("SendingData");
     Serial2.print("D");
     serialTimer = millis();
   }
-  
+
   while (Serial2.available()) {
     int val = Serial2.read();
-    if(val < 50){
+    if (val < 50) {
       key = val;
-    }else{
-      switch(key){
+    } else {
+      switch (key) {
         case 8:
-          if(val-50 != turnCount){
-            buzzTimer = millis();
+          if (val - 50 != turnCount) {
+            onTurn();
           }
-          turnCount = val-50;
+
+          turnCount = val - 50;
           break;
         case 9:
-          lineAng = val-150;
+          lineAng = val - 150;
           break;
         case 10:
-          trackDir = val-150;
+          trackDir = val - 150;
+          break;
+        case 11:
+          if(val > 55){
+            lastLine = true;
+          }
+          else{
+            lastLine = false;
+          }
           break;
       }
     }
   }
 }
 
-void printSerialInfo(){
+void printSerialInfo() {
   Serial.print("turnCount: ");
   Serial.print(turnCount);
   Serial.print(" - lineAng: ");
@@ -71,7 +80,7 @@ void printSerialInfo(){
   Serial.println(trackDir);
 }
 
-void getMPU(){
+void getMPU() {
   mpu.update();
-  currentAngle = mpu.getAngleZ();
+  currentAngle = mpu.getGyroAngleY();
 }
