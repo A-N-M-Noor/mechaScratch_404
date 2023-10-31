@@ -35,7 +35,7 @@ ____
       - Use the sliders to fine tune the mask.
       ![image](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/4cd7cfe5-3151-4d9b-84e8-bf25f20685a6)
 
-      - Press 's' on your keyboard to print the HSV range in the terminal. It will also ask you for a name. Give the color a name in the terminal, and the program will save the color range in a JASON file in the directory: 'Data/Colors.json'.
+      - Press 's' on your keyboard to print the HSV range in the terminal. It will also ask you for a name. Give the color a name in the terminal, and the program will save the color range in a JSON file in the directory: 'Data/Colors.json'.
 
 2. `(deprecated) camThreading.py`:
    - Purpose: This code uses two cameras (Webcam and pi camera) simultaneously using threading
