@@ -1,5 +1,3 @@
 Team's photos
 ====
-CONTENTS:
-1.FUNNY PHOTO
-2.OFFICIAL PHOTO
+
