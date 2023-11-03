@@ -54,8 +54,8 @@ In the case of the front sensor, its remapped value is employed to diminish the 
 This comprehensive sensor-driven control scheme ensures that the robot can effectively navigate and respond to its environment, making it capable of avoiding obstacles and adjusting its course as needed.
 
 #### Lap count:
-The Jetson Nano constantly looks for the corner lines using the camera. If the first line is blue, then the robot is going counter-clockwise, and if the first line is orange, then the robot is goin clockwise. After determining the direction, then the program looks for the second line. Whenever it sees a line matching the color of the second line, it sends the data to the ESP32 and increases the turn count by one. To achieve the goal of completing three laps, the robot must complete 12 turns in total.
-Therefore, when the turn count reaches the value of 12, the program triggers the robot to operate under normal conditions for a predetermined duration. After that, the robot comes to a halt, having successfully completed three laps.
+The Jetson Nano constantly looks for the corner lines using the camera. If the first line is blue, then the robot is going counter-clockwise, and if the first line is orange, then the robot is going clockwise. After determining the direction, then the program looks for the second line. Whenever it sees a line matching the color of the second line, it sends the data to the ESP32 and increases the turn count by one. To achieve the goal of completing three laps, the robot must complete 12 turns in total.
+Therefore, when the turn count reaches the value of 12, the program triggers the robot to operate under normal conditions for a predetermined duration. After that, the robot comes to a halt, having completed three laps.
 
 The robot harnesses the processing power of both cores of the ESP32 microcontroller by using FreeRTOS, a real-time operating system. The primary core handles all logical operations and calculations, ensuring the swift execution of tasks. Simultaneously, a separate core is dedicated to acquiring sensor data, allowing for rapid data retrieval. This dual-core configuration enables the robot to perform calculations and make decisions with remarkable speed and efficiency.
 
@@ -65,8 +65,8 @@ At present, the robot uses OpenCV for detecting red and green towers. The Jetson
     distance = k/width
 
 
-<img align="left" alt="NAUT" width="500" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/a00f20ec-0540-41f9-9b10-cbe79204a923">
-<img align="center" alt="NAUT" width="220" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/d5fe1201-4117-4909-a40a-e25a78df4304">
+<img align="left" alt="METRIC" width="500" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/a00f20ec-0540-41f9-9b10-cbe79204a923">
+<img align="center" alt="METRIC" width="220" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/d5fe1201-4117-4909-a40a-e25a78df4304">
 ____________The value of ‘k’ was determined by plotting real-life data from
 experiments on a graph. In our case, the value of ‘k’ is 2141. Using this value in the equation roughly matches the real-life data.
 
@@ -78,7 +78,7 @@ This is done the same way as in the [qualifying round](https://github.com/A-N-M-
 #### Avoiding towers:
 After obtaining the initial steer and throttle values from the sonar sensors, the program proceeds to adjust these values based on the presence of red and green towers in the environment.
 
-The program systematically evaluates all visible towers and selects the one closest to the robot. It then examines two key factors: the distance to the target tower and its horizontal position on the screen.
+The program systematically evaluates all visible towers and selects the one closest to the robot. Then it follows the robot up to a certain distance and then starts to avoid the tower based on the color. For this, it examines two key factors: the distance to the target tower and its horizontal position on the screen.
 
 * **Distance Factor:** A numeric value between 0 and 1 is generated, and this value is directly proportional to the tower's proximity to the robot. The closer the tower, the larger this value becomes.
 
@@ -86,6 +86,9 @@ The program systematically evaluates all visible towers and selects the one clos
 
 These two calculated values are then multiplied together, yielding a new value also ranging from 0 to 1. This new value is added to or subtracted from the existing steer value. This dynamic adjustment based on tower presence and location allows the robot to navigate and react to the positions of red and green towers, facilitating precise and adaptable movement.
 
+Right after the robot passes a tower, it steers a little bit towards the opposite of the way it was steering in order to pass that tower. For example, if the robot passes a red tower, which means it was steering towards the right side, the robot will steer towards the left for a brief moment. This ensures that the robot will notice the next object without issues.
+
+As the robot keeps track of the blue or yellow lines placed at the corners of the track, it understands when to take a turn. Therefore, the robot takes a small turn whenever it notices a new line using its camera. It stops turning immediately when it sees a tower.
 
 #### Avoiding collisions:
 To address the possibility of collisions with walls or towers after modifying the steer and throttle values using the tower detection algorithm, the program implements continuous monitoring of distance values. If any of these values fall below a specified threshold, the program overrides the modifications made by the tower-avoidance algorithm and reverts to actions based on the distance values alone.
@@ -97,7 +100,15 @@ Additionally, if any object, such as a wall or tower, approaches closer to the r
 This is done the same way as in the [qualifying round](https://github.com/A-N-M-Noor/mechaScratch_404/tree/main#lap-count).
 
 #### U-turn:
-After completing the second lap, which corresponds to the 8th turn, the program saves the type of the last detected object. If this last object is determined to be red, the robot does a full 180-degree turn, accomplished through the MPU, reversing its orientation. Following this 180-degree turn, the robot resumes its normal operation, continuing with its regular navigation and obstacle avoidance methods.
+The program keeps the history of towers it has encountered in its way. It stores them in a stack-like order. So, after the 8th turn, The robot starts looking for colored towers. There are a few possible scenarios:
+* The robot detects a tower at the beginning or the middle of the section. Then that tower is the last tower.
+  - If it's red, do a U-turn.
+  - If it's green, disable u-turn.
+* The robot detects a tower at the end of the section. Then the last object saved in the history stack is the final tower.
+  - If it's red, wait until the robot gets to the middle of the section, and do a U-turn
+  - If it's green, disable U-turn
+
+After the robot makes a U-turn, it sends a flag to the Jetson to reset the turn count and flip the track direction.
 
 Once again, the ESP32's primary core handles the calculations and decision-making processes, while the secondary core is responsible for collecting data from the distance sensors and the Jetson Nano. This configuration enables the robot to react quickly and avoid collisions with walls or obstacles.
 
