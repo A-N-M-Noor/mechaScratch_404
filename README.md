@@ -159,3 +159,7 @@ The fundamental idea behind Ackerman steering is that the inner and outer wheels
 
 * We also used a differential gearbox for the rear wheels. Although it uses a single DC motor, its primary purpose is to enable the wheels on a single axle to rotate at different speeds while receiving power from the engine and transmission. This crucial function allows for smooth and stable operation, particularly when the vehicle is turning. The differential works by distributing power from the input (usually the driveshaft) to the wheels. It ensures that both wheels receive power depending on the direction it's turning.
 <img  width="800" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/ccd4dbc3-0f39-403d-814e-50581b134f64">
+
+----
+----
+![Untitled](https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/a441b7d7-451e-4f49-807d-af7072acc6f2)
