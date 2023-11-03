@@ -10,7 +10,7 @@ from serial.tools import list_ports
 
 
 class vStream:
-    def __init__(self,src,width=640,height=480, Type=False, blr = 5):
+    def __init__(self,src,width=860,height=480, Type=False, blr = 5):
         self.width=width
         self.height=height
         if(Type):
@@ -36,14 +36,14 @@ class vStream:
             self.dtav=.9*self.dtav+.1*self.dt
             self.fps=1/self.dtav
     def getFrame(self):
-        return cv2.GaussianBlur(self.frame2, (blr,blr), cv2.BORDER_DEFAULT)
+        return self.frame2
 
 
 flip=0
-dispW=640
+dispW=860
 dispH=480
-camSet='nvarguscamerasrc wbmode=0 !  video/x-raw(memory:NVMM), width='+str(dispW*2)+', height='+str(dispH*2)+', format=NV12, framerate=30/1 ! nvvidconv flip-method='+str(flip)+' ! video/x-raw, width='+str(dispW*2)+', height='+str(dispH*2)+', format=BGRx ! videoconvert ! video/x-raw, format=BGR ! appsink'
-cam2=vStream(0, Type=cv2.CAP_V4L)
+#camSet='nvarguscamerasrc wbmode=0 !  video/x-raw(memory:NVMM), width='+str(dispW*2)+', height='+str(dispH*2)+', format=NV12, framerate=30/1 ! nvvidconv flip-method='+str(flip)+' ! video/x-raw, width='+str(dispW*2)+', height='+str(dispH*2)+', format=BGRx ! videoconvert ! video/x-raw, format=BGR ! appsink'
+cam2=vStream(0, Type=cv2.CAP_V4L, blr=3)
 font=cv2.FONT_HERSHEY_SIMPLEX
 
 ports = serial.tools.list_ports.comports()
@@ -83,26 +83,41 @@ def getLines(_hsv, _borderMask, rng, minL = 100):
 
         mask = mask + mask2
     mask = cv2.bitwise_and(mask, _borderMask)
-    cnt, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2:]
+    ret, thresh = cv2.threshold(mask, 150, 255, cv2.THRESH_BINARY)
+
+    cnt, _ = cv2.findContours(thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)[-2:]
     
     lines = []
+    linesOut = []
     for cont in cnt:
         rect = cv2.minAreaRect(cont)
+        rBnd = np.int0(cv2.boxPoints(rect))
+
         lineL = max(rect[1][0], rect[1][1])
-        vx,vy,x,y = cv2.fitLine(cont, cv2.DIST_L2,0,0.01,0.01)
+        lineW = min(rect[1][0], rect[1][1])
+        vx,vy,x,y = cv2.fitLine(rBnd, cv2.DIST_L2,0,0.01,0.01)
         
         x1, y1, x2, y2 = int(x - vx*lineL/2),int(y - vy*lineL/2), int(x + vx*lineL/2),int(y + vy*lineL/2)
         ang = math.degrees( math.atan2(vy, vx) )
-        if(lineL > minL and max(y1,y2) > 240): lines.append([(x1, y1), (x2, y2), lineL, ang, (x,y)]) 
+        if(lineL > minL and lineW < 30): 
+            if(max(y1,y2) > 180):
+                lines.append([(x1, y1), (x2, y2), lineL, ang, (x,y)]) 
+            else:
+                linesOut.append([(x1, y1), (x2, y2), lineL, ang, (x,y)]) 
     lines.sort(key = lambda l: l[2], reverse=True)
     
-    return lines, mask
+    return lines, linesOut, mask
 
-def showLines(_frame, _lines):
+def showLines(_frame, _lines, _oLines):
     for ln in _lines:
-        cv2.line(_frame, ln[0], ln[1], (255, 255, 0), 3)
+        cv2.line(_frame, ln[0], ln[1], (255, 0, 255), 3)
         cv2.circle(_frame, ln[1], 7, (0,255,255), -1)
         cv2.putText(_frame, str(int(ln[3])), (ln[0]), font, 0.5, (255,0,255))
+
+    for ln in _oLines:
+        cv2.line(_frame, ln[0], ln[1], (255, 255, 0), 3)
+        cv2.circle(_frame, ln[1], 7, (0,255,255), -1)
+        cv2.putText(_frame, str(int(ln[3])), (ln[0]), font, 0.5, (255,255,0))
 
 
 
@@ -122,25 +137,40 @@ def sendDat(_sPrt, key, val):
 
 turnCount = 0
 firstLine = "-" # O means Orange, B means Blue
-lineTime = 1.6
+lineTime = 0.65
 lineTimer = -lineTime
 gotLine = True
 lineAng = 0
 trackDir = 0
+outLine = False
 
 def serialComm():
     global turnCount
     global firstLine
     global trackDir
     global gotLine
+    global outLine
+    global lineTimer
+
     while True:
         try:
             if(sPrt.in_waiting > 0):
                 rd = sPrt.read().decode()
                 if(rd == 'D'):
                     sendDat(sPrt, 8, turnCount+50)
-                    sendDat(sPrt, 9, lineAng+150)
                     sendDat(sPrt, 10, trackDir+150)
+                    if(outLine):
+                        sendDat(sPrt, 11, 60)
+                    else:
+                        sendDat(sPrt, 11, 51)
+                
+                if(rd == "<"):
+                    vl = sPrt.read_until(b">").decode()
+                    try:
+                        lineTimer = lineTimer - (int(vl[:-1]) / 1000.0)
+                    except Exception as e:
+                        print(e)
+                
                 if(rd == 'S'):
                     turnCount = 0
                     firstLine = "-"
@@ -155,22 +185,37 @@ commThread=Thread(target=serialComm,args=())
 commThread.daemon=True
 commThread.start()
 
+startTime=time.time()
+dtav=0
+
 while True:
     try:
         frameB=cam2.getFrame()
-        hsvB = cv2.cvtColor(frameB, cv2.COLOR_BGR2HSV)
+
+        frameBlr = cv2.GaussianBlur(frameB, (3,3), cv2.BORDER_DEFAULT)
+        hsvB = cv2.cvtColor(frameBlr, cv2.COLOR_BGR2HSV)
 
         borderMask = np.zeros(frameB.shape[:2], dtype="uint8")
         cv2.rectangle(borderMask, (50, 50), (frameB.shape[:2][1]-50, frameB.shape[:2][0]-50), (255), -1)
 
-        linesOrng, mskO = getLines(hsvB, borderMask, rngOrng)
-        linesBlue, mskB = getLines(hsvB, borderMask, rngBlue)
+        if(firstLine == "-" or turnCount == 12):
+            linesOrng, outLineO, mskO = getLines(hsvB, borderMask, rngOrng)
+            linesBlue, outLineB, mskB = getLines(hsvB, borderMask, rngBlue)
+        else:
+            if(firstLine == "O"):
+                linesBlue, outLineB, mskB = getLines(hsvB, borderMask, rngBlue)
+                linesOrng, outLineO = [], []
+            else:
+                linesOrng, outLineO, mskO = getLines(hsvB, borderMask, rngOrng)
+                linesBlue, outLineB = [], []
 
-        _frameB = frameB.copy()
-        showLines(_frameB, linesBlue + linesOrng)
+        showLines(frameB, linesBlue + linesOrng, outLineO + outLineB)
+
+        oLine = True if (len(linesOrng) > 0) else False
+        bLine = True if (len(linesBlue) > 0) else False
 
         if(firstLine == "-"):
-            if(len(linesOrng) > 0 and len(linesBlue) > 0):
+            if(oLine and bLine):
                 print(linesBlue)
                 print(linesOrng)
                 if(linesBlue[0][4][1] < linesOrng[0][4][1]):
@@ -180,29 +225,46 @@ while True:
                     firstLine = "O"
                     trackDir = -1
             
-            elif(len(linesOrng) > 0):
+            elif(oLine):
                 firstLine = "O"
-            elif(len(linesBlue) > 0):
+            elif(bLine):
                 firstLine = "B"
 
         lineAng = 0
-        if(len(linesOrng) > 0 or len(linesBlue) > 0):
+        if(oLine or bLine):
             if(time.time() - lineTimer > lineTime and gotLine == False):
-                if(len(linesOrng) > 0 and firstLine == "B"):
+                print(oLine )
+                print(firstLine)
+                if(oLine and firstLine == "B"):
                     turnCount = turnCount + 1
                     lineTimer = time.time()
                     gotLine = True
-                if(len(linesBlue) > 0 and firstLine == "O"):
+                if(bLine and firstLine == "O"):
                     turnCount = turnCount + 1
                     lineTimer = time.time()
                     gotLine = True
         else:
             gotLine = False
-            
-        cv2.rectangle(_frameB,(0,0),(140,40),(0,0,255),-1)
-        cv2.putText(_frameB,firstLine + "  " + str(int(turnCount)),(10,25),font,.75,(0,255,255),2)
-        cv2.imshow('Frame',_frameB)
-        cv2.imshow('mskB',mskB)
+        
+        outLine = False
+        if(len(outLineB) > 0 or len(outLineO) > 0):
+            if(firstLine == "B" and len(outLineB) > 0):
+                outLine = True
+            if(firstLine == "O" and len(outLineO) > 0):
+                outLine = True
+        #print(outLine)
+
+        dt=time.time()-startTime
+        startTime=time.time()
+        dtav=.9*dtav+.1*dt
+        fps=1/dtav
+        cv2.rectangle(frameB,(0,50),(140,90),(0,0,255),-1)
+        cv2.putText(frameB,str(round(fps,1))+' fps',(0,75),font,.75,(0,255,255),2)
+
+        cv2.rectangle(frameB,(0,0),(140,40),(0,0,255),-1)
+        cv2.putText(frameB,firstLine + "  " + str(int(turnCount)),(10,25),font,.75,(0,255,255),2)
+        cv2.imshow('Frame', frameB)
+        cv2.imshow('msk', mskO)
         
 
     except KeyboardInterrupt:
