@@ -86,7 +86,7 @@ The program systematically evaluates all visible towers and selects the one clos
 
 These two calculated values are then multiplied together, yielding a new value also ranging from 0 to 1. This new value is added to or subtracted from the existing steer value. This dynamic adjustment based on tower presence and location allows the robot to navigate and react to the positions of red and green towers, facilitating precise and adaptable movement.
 
-Right after the robot passes a tower, it steers a little bit towards the opposite of the way it was steering in order to pass that tower. For example, if the robot passes a red tower, which means it was steering towards the right side, the robot will steer towards the left for a brief moment. This ensures that the robot will notice the next object without issues.
+Right after the robot passes a tower, it steers a little bit towards the opposite of the way it was steering in order to pass that tower. For example, if the robot passes a red tower, which means it has been steering towards the right side, the robot will steer towards the left for a brief moment. This ensures that the robot will notice the next object without issues.
 
 As the robot keeps track of the blue or yellow lines placed at the corners of the track, it understands when to take a turn. Therefore, the robot takes a small turn whenever it notices a new line using its camera. It stops turning immediately when it sees a tower.
 
@@ -125,7 +125,7 @@ In order to achieve the highest possible efficiency and reliability, we have spe
 * 5xHC-SR04 Ultrasonic Sensors
 * TB6612FNG Motor Driver
 * MPU6050
-* 3.0 USB Type-C Buck module
+* 3.0 USB Type-C PD Power module
 * XL6009 Buck Boost Module
 * 3S LiPo battery input through XT60 Connector
 * Mini Rocker Switch
@@ -147,12 +147,12 @@ We've made our robot totally from scratch. Most of the parts of our robot are 3D
 
 ## Design Decisions
 * We've designed a sonar mount which is mounted at the front and the side of the robot where the front-left and front-right sonar sensors are mounted at an angle of 52.5 degrees. Based on our testing, this is the optimal angle for the sonars to detect walls ahead of time, giving the bot enough time to react.
-* We're using a Jetson Nano to handle the image processing algorithms. The Jetson Nano uses two cameras to detect towers and corner lines and sends the data to ESP32 via serial communication.
+* We're using a Jetson Nano to handle the image processing algorithms. The Jetson Nano uses a camera to detect towers and corner lines and sends the data to ESP32 via serial communication.
 * The front axle is being articulated by the Servo Motor.
 * To control our Motor we have used a TB6612FNG motor driver.
-* MPU6050 was used to measure the real-time orientation of the robot and to help make the U-turn.
 * A Buck-Boost modules were used for getting a constant output of 12V for the Motor
-* Two buck module is used. One is for getting a constant 6V for the Servo, and the other one is for getting a constant 5V for the Jetson Nano as well as the ESP32.
+* Two buck module is used. One is for getting a constant 6V for the Servo, and the other one is for getting a constant 5V for the ESP32.
+* A DC Quick Charge Adapter is used to power the Jetson.
 * We used Ackerman steering as it is a vital steering geometry concept that enhances the handling and cornering performance of vehicles, making them safer and more efficient on the road. Ackerman steering, also known as Ackerman geometry or Ackerman principle, is a steering mechanism that is used in vehicles in order to enable proper turning of the wheels while maintaining optimal geometry and minimizing tire scrubbing during turns. It is commonly used in most modern vehicles, including cars, trucks, and other wheeled vehicles.
 The fundamental idea behind Ackerman steering is that the inner and outer wheels of a vehicle must follow different turning radii during a turn, considering the varying angles of the front wheels. When a vehicle turns, the inner wheel needs to negotiate a tighter radius than the outer wheel to maintain a smooth turn without dragging or scuffing the tires. The Ackerman steering mechanism achieves this by using a steering linkage that connects the wheels. Typically, it consists of two tie rods connected to the steering arms on each wheel. The tie rods are connected to a central steering mechanism, such as a steering rack or a pitman arm, which is controlled by the driver. As the driver turns the steering wheel, the steering mechanism transfers the motion to the tie rods, causing the wheels to rotate accordingly. The geometry of the Ackerman steering mechanism ensures that the inner wheel turns at a sharper angle compared to the outer wheel, allowing both wheels to trace their respective turning radii accurately. By implementing Ackerman steering, vehicles can achieve better maneuverability, stability, and reduced tire wear during turns. It ensures that all wheels maintain proper contact with the road surface and minimizes the likelihood of skidding or slipping during turns.
 <img width="800" src="https://github.com/Ahnaf-nub/Mecha-404/assets/76505613/5aab9af5-65b7-4ce1-a794-1a9a6564b4d6">
