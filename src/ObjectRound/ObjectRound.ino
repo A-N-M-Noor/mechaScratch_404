@@ -13,7 +13,7 @@ float modAcrossX, modAcrossD;
 
 int turnCount = 0;
 int totalTurns = 12;
-int scndLapTurns = 4;
+int scndLapTurns = 8;
 bool uTurn = true;
 bool makeUTurn = false;
 bool passedLastObj = false;
