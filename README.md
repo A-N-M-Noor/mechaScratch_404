@@ -3,7 +3,7 @@
  <!-- ![mecha scratch main](https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/82dec0fd-90a3-4080-8b9e-d6446caba096)   -->
 ![mecha scratch main](https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/00ac4db6-d1b9-4817-b925-19fcd10ec175)
 
-### This repository is the collection of engineering materials pertaining to PERA-METER, a self-driving vehicle model developed by Team mechaScratch_404, participating in the 2023 WRO International Final (Future Engineers).
+### This repository is the collection of engineering materials pertaining to PERA-METER, a self-driving vehicle model developed by Team mechaScratch_404, participating in the 2023 WRO International Final (Future Engineers) from BANGLADESH.
 ----
 
 ## Team Members:
