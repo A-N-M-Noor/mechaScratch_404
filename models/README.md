@@ -37,8 +37,9 @@ Here, `(2x)` indicates this model needs to be printed twice. And `(Mid)` indicat
 | -------------------------------------------------- | ----------------------------------------------------------- |
 |<img align="center" alt="NAUT" width="400" src="https://github.com/tajwarTX/test/assets/136412241/34932f5a-0eb9-44f1-8254-738e351c70d0"> | <img align="center" alt="NAUT" width="400" src="https://github.com/tajwarTX/test/assets/136412241/70fb97de-0d4a-4db5-82d4-8c0e94e20f13">   |
 
+ > [!NOTE]
+ > Use zip ties to secure the camera to tha camera base
 
-Note: Use zip ties to secure the camera to tha camera base
 
 ----
 ----
