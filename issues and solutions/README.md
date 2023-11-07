@@ -5,6 +5,8 @@ Detecting colors using RGB color space gives unreliable outcomes. The reason is,
 
 The HSV color code, also known as HSB (Hue, Saturation, Brightness), is a color model used to describe and represent colors in terms of three fundamental attributes: hue, saturation, and brightness. It is often used in computer graphics, image processing, and design applications. Here's a brief explanation of each component:
 
+<img align="Right" alt="HSV" width="350" src="https://github.com/tajwarTX/test/assets/113457396/08ebdea5-9612-493a-9cee-11e7c33df9f2">
+
 * **Hue (H):** Hue refers to the dominant color in a particular shade. It is measured in degrees on a color wheel, typically ranging from 0 to 360 degrees. In this representation, 0° corresponds to red, 120° to green, and 240° to blue, with the other colors filling the spectrum in between.
 
   _However, in OpenCV, the range for hue is from 0 to 180._
@@ -17,8 +19,7 @@ The HSV color code, also known as HSB (Hue, Saturation, Brightness), is a color 
 
   _However, in OpenCV, the range for brightness is from 0 to 255._
   
-  
-<img align="middle" alt="HSV" width="350" src="https://github.com/tajwarTX/test/assets/113457396/08ebdea5-9612-493a-9cee-11e7c33df9f2">
+
   
   
 By combining these three components (H, S, and V), you can specify a wide range of colors. And HSV color space somewhat represents the way humans perceive colors. This makes the HSV color model a more intuitive and user-friendly way to describe and select colors compared to other color models like RGB or CMYK, which are based on the additive or subtractive properties of light.
@@ -44,12 +45,16 @@ Here's the list of key-value pairs we've used in our program:
 
 ## The robot randomly bumps into objects
 
-<img align="right" width="420" src="https://github.com/tajwarTX/test/assets/136412241/f802a384-653b-4f41-8f8f-881cbcc15142">
+<img align="right" width="250" src="https://github.com/tajwarTX/test/assets/136412241/f802a384-653b-4f41-8f8f-881cbcc15142">
 
 The robot encounters occasional instances where it unintentionally collides with walls or some towers. To mitigate this issue, a collision avoidance algorithm has been implemented. When the robot detects objects in close proximity, it responds by executing a brief backward movement, effectively reversing its direction for a short distance. Following this reverse action, the robot proceeds with its regular course of operation, thereby minimizing the impact of accidental collisions and promoting smoother navigation.
 
 
 
+----
+----
+----
+----
 
 
 ## Issues with the back camera
