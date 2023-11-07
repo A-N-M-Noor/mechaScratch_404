@@ -34,15 +34,62 @@
 ----
 ----
 ----
+## Mechanical Design
+We've made our robot totally from scratch. Most of the parts of our robot are 3D printed, starting from chassis, wheels, and so on.
+
+### Mechanical Parts List
+* Axial Bearing (8mm x 16mm x 5mm)
+* Axial Flange Bearing (3mm x 8mm x 4mm)
+* M3 bolt
+* M3 nut
+* M2 bolt
+* M2 nut
+* M3 Hex Spacer
+
+## Design Decisions
+* We've designed a sonar mount which is mounted at the front and the side of the robot where the front-left and front-right sonar sensors are mounted at an angle of 52.5 degrees. Based on our testing, this is the optimal angle for the sonars to detect walls ahead of time, giving the bot enough time to react.
+* We're using a Jetson Nano to handle the image processing algorithms. The Jetson Nano uses a camera to detect towers and corner lines and sends the data to ESP32 via serial communication.
+* The front axle is being articulated by the Servo Motor.
+* To control our Motor we have used a TB6612FNG motor driver.
+* A Buck-Boost modules were used for getting a constant output of 12V for the Motor
+* Two buck module is used. One is for getting a constant 6V for the Servo, and the other one is for getting a constant 5V for the ESP32.
+* A DC Quick Charge Adapter is used to power the Jetson.
+* We used Ackerman steering as it is a vital steering geometry concept that enhances the handling and cornering performance of vehicles, making them safer and more efficient on the road. Ackerman steering, also known as Ackerman geometry or Ackerman principle, is a steering mechanism that is used in vehicles in order to enable proper turning of the wheels while maintaining optimal geometry and minimizing tire scrubbing during turns. It is commonly used in most modern vehicles, including cars, trucks, and other wheeled vehicles.
+The fundamental idea behind Ackerman steering is that the inner and outer wheels of a vehicle must follow different turning radii during a turn, considering the varying angles of the front wheels. When a vehicle turns, the inner wheel needs to negotiate a tighter radius than the outer wheel to maintain a smooth turn without dragging or scuffing the tires. The Ackerman steering mechanism achieves this by using a steering linkage that connects the wheels. Typically, it consists of two tie rods connected to the steering arms on each wheel. The tie rods are connected to a central steering mechanism, such as a steering rack or a pitman arm, which is controlled by the driver. As the driver turns the steering wheel, the steering mechanism transfers the motion to the tie rods, causing the wheels to rotate accordingly. The geometry of the Ackerman steering mechanism ensures that the inner wheel turns at a sharper angle compared to the outer wheel, allowing both wheels to trace their respective turning radii accurately. By implementing Ackerman steering, vehicles can achieve better maneuverability, stability, and reduced tire wear during turns. It ensures that all wheels maintain proper contact with the road surface and minimizes the likelihood of skidding or slipping during turns.
+<img width="800" src="https://github.com/Ahnaf-nub/Mecha-404/assets/76505613/5aab9af5-65b7-4ce1-a794-1a9a6564b4d6">
+
+* We also used a differential gearbox for the rear wheels. Although it uses a single DC motor, its primary purpose is to enable the wheels on a single axle to rotate at different speeds while receiving power from the engine and transmission. This crucial function allows for smooth and stable operation, particularly when the vehicle is turning. The differential works by distributing power from the input (usually the driveshaft) to the wheels. It ensures that both wheels receive power depending on the direction it's turning.
+<img  width="800" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/ccd4dbc3-0f39-403d-814e-50581b134f64">
+
+
+
+
+## Electrical design of our robot.
+In order to achieve the highest possible efficiency and reliability, we have spent several hundred hours researching and developing the parts. The following paragraphs provide detailed information about electrical systems design.
+
+### Electronics Parts list
+* Jetson Nano Developer Kit (4GB)
+* Esp32 Development Board
+* USB to TTL Serial Converter
+* Micropack MWB-15 Pro FHD 2MP Stream Webcam
+* 500 rpm 25GA 12V DC Gear Motor
+* DS3235 Servo
+* 5xHC-SR04 Ultrasonic Sensors
+* TB6612FNG Motor Driver
+* MPU6050
+* 3.0 USB Type-C PD Power module
+* XL6009 Buck Boost Module
+* 3S LiPo battery input through XT60 Connector
+* Mini Rocker Switch
+* Push Button
+* LED (3mm)
+* Electrolytic Capacitor (1000μF)
+
+
+
+
 ## Program infrastructure and explanation of algorithm.
-
-
-
-
-
 ### Qualifying Round
-
-
 #### Avoiding walls:
 <img align="right" alt="bleh" width="400" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/6fd78bbe-044a-406e-8ab0-89463a3098b5">
 The program initiates with an initial throttle value of 1 (Full forward) and a steer value of 0 (No steering). Then it evaluates each sensor, checking whether its measured distance falls below its designated maximum distance threshold. If this condition is met, the sensor's value is remapped within a range specified by a minimum and maximum value, both of which are confined to the 0-1 range. This remapping process is inversely related to distance; the closer an object is, the higher the remapped value becomes.
@@ -112,53 +159,9 @@ After the robot makes a U-turn, it sends a flag to the Jetson to reset the turn 
 
 Once again, the ESP32's primary core handles the calculations and decision-making processes, while the secondary core is responsible for collecting data from the distance sensors and the Jetson Nano. This configuration enables the robot to react quickly and avoid collisions with walls or obstacles.
 
-## Electrical design of our robot.
-In order to achieve the highest possible efficiency and reliability, we have spent several hundred hours researching and developing the parts. The following paragraphs provide detailed information about electrical systems design.
 
-### Electronics Parts list
-* Jetson Nano Developer Kit (4GB)
-* Esp32 Development Board
-* USB to TTL Serial Converter
-* Micropack MWB-15 Pro FHD 2MP Stream Webcam
-* 500 rpm 25GA 12V DC Gear Motor
-* DS3235 Servo
-* 5xHC-SR04 Ultrasonic Sensors
-* TB6612FNG Motor Driver
-* MPU6050
-* 3.0 USB Type-C PD Power module
-* XL6009 Buck Boost Module
-* 3S LiPo battery input through XT60 Connector
-* Mini Rocker Switch
-* Push Button
-* LED (3mm)
-* Electrolytic Capacitor (1000μF)
 
-## Mechanical Design
-We've made our robot totally from scratch. Most of the parts of our robot are 3D printed, starting from chassis, wheels, and so on.
 
-### Mechanical Parts List
-* Axial Bearing (8mm x 16mm x 5mm)
-* Axial Flange Bearing (3mm x 8mm x 4mm)
-* M3 bolt
-* M3 nut
-* M2 bolt
-* M2 nut
-* M3 Hex Spacer
-
-## Design Decisions
-* We've designed a sonar mount which is mounted at the front and the side of the robot where the front-left and front-right sonar sensors are mounted at an angle of 52.5 degrees. Based on our testing, this is the optimal angle for the sonars to detect walls ahead of time, giving the bot enough time to react.
-* We're using a Jetson Nano to handle the image processing algorithms. The Jetson Nano uses a camera to detect towers and corner lines and sends the data to ESP32 via serial communication.
-* The front axle is being articulated by the Servo Motor.
-* To control our Motor we have used a TB6612FNG motor driver.
-* A Buck-Boost modules were used for getting a constant output of 12V for the Motor
-* Two buck module is used. One is for getting a constant 6V for the Servo, and the other one is for getting a constant 5V for the ESP32.
-* A DC Quick Charge Adapter is used to power the Jetson.
-* We used Ackerman steering as it is a vital steering geometry concept that enhances the handling and cornering performance of vehicles, making them safer and more efficient on the road. Ackerman steering, also known as Ackerman geometry or Ackerman principle, is a steering mechanism that is used in vehicles in order to enable proper turning of the wheels while maintaining optimal geometry and minimizing tire scrubbing during turns. It is commonly used in most modern vehicles, including cars, trucks, and other wheeled vehicles.
-The fundamental idea behind Ackerman steering is that the inner and outer wheels of a vehicle must follow different turning radii during a turn, considering the varying angles of the front wheels. When a vehicle turns, the inner wheel needs to negotiate a tighter radius than the outer wheel to maintain a smooth turn without dragging or scuffing the tires. The Ackerman steering mechanism achieves this by using a steering linkage that connects the wheels. Typically, it consists of two tie rods connected to the steering arms on each wheel. The tie rods are connected to a central steering mechanism, such as a steering rack or a pitman arm, which is controlled by the driver. As the driver turns the steering wheel, the steering mechanism transfers the motion to the tie rods, causing the wheels to rotate accordingly. The geometry of the Ackerman steering mechanism ensures that the inner wheel turns at a sharper angle compared to the outer wheel, allowing both wheels to trace their respective turning radii accurately. By implementing Ackerman steering, vehicles can achieve better maneuverability, stability, and reduced tire wear during turns. It ensures that all wheels maintain proper contact with the road surface and minimizes the likelihood of skidding or slipping during turns.
-<img width="800" src="https://github.com/Ahnaf-nub/Mecha-404/assets/76505613/5aab9af5-65b7-4ce1-a794-1a9a6564b4d6">
-
-* We also used a differential gearbox for the rear wheels. Although it uses a single DC motor, its primary purpose is to enable the wheels on a single axle to rotate at different speeds while receiving power from the engine and transmission. This crucial function allows for smooth and stable operation, particularly when the vehicle is turning. The differential works by distributing power from the input (usually the driveshaft) to the wheels. It ensures that both wheels receive power depending on the direction it's turning.
-<img  width="800" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/ccd4dbc3-0f39-403d-814e-50581b134f64">
 
 ----
 ----
