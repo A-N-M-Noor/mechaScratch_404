@@ -127,6 +127,12 @@ The fundamental idea behind Ackerman steering is that the inner and outer wheels
 * A Buck-Boost modules were used for getting a constant output of 12V for the Motor
 * Two buck module is used. One is for getting a constant 6V for the Servo, and the other one is for getting a constant 5V for the ESP32.
 * A DC Quick Charge Adapter is used to power the Jetson.
+
+### Custom hand made circuit board
+| Top                            | Under                                         | Power management              |
+| ---------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|<img align="center" alt="NAUT" width="250" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/3ad88867-3617-4841-8873-e2bbfdfad05a"> |<img align="center" alt="NAUT" width="250" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/efd5d66b-6b7e-4f4f-b996-62baf2179b15"> | <img align="center" alt="NAUT" width="600" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/0459b377-2968-4c0d-bd97-59d4c65a9c2c"> |
+
 ----
 
 <img align="right" alt="NAUT" width="200" src="https://github.com/tajwarTX/test/assets/136412241/c514d1f7-fe7c-4ec6-a41e-335bd0a1764e">
