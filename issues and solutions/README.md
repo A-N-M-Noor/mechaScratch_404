@@ -1,4 +1,4 @@
-# Issues we've faced and how we worked around it
+# Issues we've faced and how we've worked around them
 
 ## Color Detection
 Detecting colors using RGB color space gives unreliable outcomes. The reason is, that a bright red color and a dark red color have completely different values in RGB color space. But if HSV color space is used instead, these color values become much more reliable.
