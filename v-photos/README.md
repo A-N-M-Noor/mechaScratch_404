@@ -1,9 +1,13 @@
-# Vehicle photos
-This folder contains photos of the robot from all required directions.
+# This folder contains photos of the robot from all required directions.
 
-* `Front.jpg`: Front view of the robot.
-* `Back.jpg`: Back view of the robot.
-* `Top.jpg`: Top view of the robot.
-* `Bottom.jpg`: Bottom view view of the robot.
-* `Left.jpg`: Left view of the robot.
-* `Right.jpg`: Right view of the robot.
+| Front                               | Back                            |
+| ----------------------------------- | ------------------------------- |
+| <img alt="front" width="700px" src="Front.jpg" /> | <img alt="back" width="700px" src="Back.jpg" /> |
+
+| Top                                 | Bottom                          |
+| ----------------------------------- | ------------------------------- |
+| <img alt="top" width="722px" src="Top.jpg" /> | <img alt="bottom" width="700px" src="Bottom.jpg" /> |
+
+| Left                                | Right                           |
+| ----------------------------------- | ------------------------------- |
+| <img alt="left" width="705px" src="Left.jpg" /> | <img alt="right" width="700px" src="Right.jpg" /> |
