@@ -67,9 +67,10 @@ The chassis of our robot, primarily composed of 3D-printed parts, serves as the 
 ----
 
 
-<img align="left" alt="bleh" width="470" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/6fd78bbe-044a-406e-8ab0-89463a3098b5">
 
 ## Electrical design of our robot.
+<img align="left" alt="bleh" width="500" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/6fd78bbe-044a-406e-8ab0-89463a3098b5">
+
 In order to achieve the highest possible efficiency and reliability, we have spent several hundred hours researching and developing the parts. The following paragraphs provide detailed information about electrical systems design.
 
 
@@ -93,6 +94,8 @@ In order to achieve the highest possible efficiency and reliability, we have spe
 * Push Button
 * LED (3mm)
 * Electrolytic Capacitor (1000μF)
+* MINI MP1584EN DC-DC BUCK
+* MINI DC-DC STEP DOWN POWER SUPPLY
 
  [Circuit diagrams and schematics can be found here](https://github.com/A-N-M-Noor/mechaScratch_404/tree/main/schematic).
 
@@ -162,7 +165,7 @@ At present, the robot uses OpenCV for detecting red and green towers. The Jetson
 
 <img align="left" alt="METRIC" width="500" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/a00f20ec-0540-41f9-9b10-cbe79204a923">
 <img align="center" alt="METRIC" width="220" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/d5fe1201-4117-4909-a40a-e25a78df4304">
-_________________________________________The value of ‘k’ was determined by plotting real-life data from
+____________________________________The value of ‘k’ was determined by plotting real-life data from
 experiments on a graph. In our case, the value of ‘k’ is 2141. Using this value in the equation roughly matches the real-life data.
 
 ----
