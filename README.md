@@ -32,9 +32,13 @@
 ----
 ----
 ----
-----
-----
+<img align="left" width="470" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/70286d9c-0f47-4ec0-ba24-e756b0844b83">
+
+
+
 ## Mechanical Design
+
+
 We've made our robot totally from scratch. Most of the parts of our robot are 3D printed, starting from chassis, wheels, and so on.
 
 ### Mechanical Parts List
@@ -45,29 +49,34 @@ We've made our robot totally from scratch. Most of the parts of our robot are 3D
 * M2 bolt
 * M2 nut
 * M3 Hex Spacer
-
-## Design Decisions
-* We've designed a sonar mount which is mounted at the front and the side of the robot where the front-left and front-right sonar sensors are mounted at an angle of 52.5 degrees. Based on our testing, this is the optimal angle for the sonars to detect walls ahead of time, giving the bot enough time to react.
-* We're using a Jetson Nano to handle the image processing algorithms. The Jetson Nano uses a camera to detect towers and corner lines and sends the data to ESP32 via serial communication.
-* The front axle is being articulated by the Servo Motor.
-* To control our Motor we have used a TB6612FNG motor driver.
-* A Buck-Boost modules were used for getting a constant output of 12V for the Motor
-* Two buck module is used. One is for getting a constant 6V for the Servo, and the other one is for getting a constant 5V for the ESP32.
-* A DC Quick Charge Adapter is used to power the Jetson.
-* We used Ackerman steering as it is a vital steering geometry concept that enhances the handling and cornering performance of vehicles, making them safer and more efficient on the road. Ackerman steering, also known as Ackerman geometry or Ackerman principle, is a steering mechanism that is used in vehicles in order to enable proper turning of the wheels while maintaining optimal geometry and minimizing tire scrubbing during turns. It is commonly used in most modern vehicles, including cars, trucks, and other wheeled vehicles.
-The fundamental idea behind Ackerman steering is that the inner and outer wheels of a vehicle must follow different turning radii during a turn, considering the varying angles of the front wheels. When a vehicle turns, the inner wheel needs to negotiate a tighter radius than the outer wheel to maintain a smooth turn without dragging or scuffing the tires. The Ackerman steering mechanism achieves this by using a steering linkage that connects the wheels. Typically, it consists of two tie rods connected to the steering arms on each wheel. The tie rods are connected to a central steering mechanism, such as a steering rack or a pitman arm, which is controlled by the driver. As the driver turns the steering wheel, the steering mechanism transfers the motion to the tie rods, causing the wheels to rotate accordingly. The geometry of the Ackerman steering mechanism ensures that the inner wheel turns at a sharper angle compared to the outer wheel, allowing both wheels to trace their respective turning radii accurately. By implementing Ackerman steering, vehicles can achieve better maneuverability, stability, and reduced tire wear during turns. It ensures that all wheels maintain proper contact with the road surface and minimizes the likelihood of skidding or slipping during turns.
-<img width="800" src="https://github.com/Ahnaf-nub/Mecha-404/assets/76505613/5aab9af5-65b7-4ce1-a794-1a9a6564b4d6">
-
-* We also used a differential gearbox for the rear wheels. Although it uses a single DC motor, its primary purpose is to enable the wheels on a single axle to rotate at different speeds while receiving power from the engine and transmission. This crucial function allows for smooth and stable operation, particularly when the vehicle is turning. The differential works by distributing power from the input (usually the driveshaft) to the wheels. It ensures that both wheels receive power depending on the direction it's turning.
-<img  width="800" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/ccd4dbc3-0f39-403d-814e-50581b134f64">
+* 3d Printed parts
+* Zip ties
 
 
 
+----
+
+## Robot's Chassis
+
+<img align="right" width="300" src="https://github.com/tajwarTX/test/assets/136412241/39e26ddb-3f46-42b6-b22c-9f7664d12bb7">
+
+
+The chassis of our robot, primarily composed of 3D-printed parts, serves as the robust foundation for all hardware and electronic components. Custom-designed to accommodate our specific needs, each piece has been modeled to interlock seamlessly, providing a lightweight yet durable structure. The modular nature of the 3D-printed chassis allows for easy customization and scalability. It has been engineered to house the motors, electronics, and battery, ensuring proper heat dissipation and weight distribution for optimal performance. This approach not only allows for rapid prototyping and iterative design but also ensures that parts can be replaced or upgraded with minimal effort as the robot evolves. 
+[All the 3D printable models and instructions can be found here](https://github.com/A-N-M-Noor/mechaScratch_404/tree/main/models).
+
+----
+
+
+<img align="left" alt="bleh" width="470" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/6fd78bbe-044a-406e-8ab0-89463a3098b5">
 
 ## Electrical design of our robot.
 In order to achieve the highest possible efficiency and reliability, we have spent several hundred hours researching and developing the parts. The following paragraphs provide detailed information about electrical systems design.
 
+
+
+
 ### Electronics Parts list
+
 * Jetson Nano Developer Kit (4GB)
 * Esp32 Development Board
 * USB to TTL Serial Converter
@@ -85,19 +94,58 @@ In order to achieve the highest possible efficiency and reliability, we have spe
 * LED (3mm)
 * Electrolytic Capacitor (1000μF)
 
+ [Circuit diagrams and schematics can be found here](https://github.com/A-N-M-Noor/mechaScratch_404/tree/main/schematic).
+
+----
+
+
+## Mobility Management
+* The front axle is being articulated by the Servo Motor.
+* To control our Motor we have used a TB6612FNG motor driver.
+* We used Ackerman steering as it is a vital steering geometry concept that enhances the handling and cornering performance of vehicles, making them safer and more efficient on the road. Ackerman steering, also known as Ackerman geometry or Ackerman principle, is a steering mechanism that is used in vehicles in order to enable proper turning of the wheels while maintaining optimal geometry and minimizing tire scrubbing during turns. It is commonly used in most modern vehicles, including cars, trucks, and other wheeled vehicles.
+The fundamental idea behind Ackerman steering is that the inner and outer wheels of a vehicle must follow different turning radii during a turn, considering the varying angles of the front wheels. When a vehicle turns, the inner wheel needs to negotiate a tighter radius than the outer wheel to maintain a smooth turn without dragging or scuffing the tires. The Ackerman steering mechanism achieves this by using a steering linkage that connects the wheels. Typically, it consists of two tie rods connected to the steering arms on each wheel. The tie rods are connected to a central steering mechanism, such as a steering rack or a pitman arm, which is controlled by the driver. As the driver turns the steering wheel, the steering mechanism transfers the motion to the tie rods, causing the wheels to rotate accordingly. The geometry of the Ackerman steering mechanism ensures that the inner wheel turns at a sharper angle compared to the outer wheel, allowing both wheels to trace their respective turning radii accurately. By implementing Ackerman steering, vehicles can achieve better maneuverability, stability, and reduced tire wear during turns. It ensures that all wheels maintain proper contact with the road surface and minimizes the likelihood of skidding or slipping during turns.
+
+* We also used a differential gearbox for the rear wheels. Although it uses a single DC motor, its primary purpose is to enable the wheels on a single axle to rotate at different speeds while receiving power from the engine and transmission. This crucial function allows for smooth and stable operation, particularly when the vehicle is turning. The differential works by distributing power from the input (usually the driveshaft) to the wheels. It ensures that both wheels receive power depending on the direction it's turning.
+
+
+| Ackerman steering                              | Differential gearbox                                         |
+| ---------------------------------------------- | ------------------------------------------------------------ |
+|<img align="center" alt="NAUT" width="425" src="https://github.com/Ahnaf-nub/Mecha-404/assets/76505613/5aab9af5-65b7-4ce1-a794-1a9a6564b4d6"> |<img align="center" alt="NAUT" width="550" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/ccd4dbc3-0f39-403d-814e-50581b134f64"> |
 
 
 
+ ----
+ ----
+## Power and Sense Management
+* The main camera is placed at the top of the robot facing slightly downwards. This downward-facing angle enhances the camera's ability to detect objects effectively, starting from close proximity and extending to objects situated further away.
+* We've designed a sonar mount which is mounted at the front and the side of the robot where the front-left and front-right sonar sensors are mounted at an angle of 52.5 degrees. Based on our testing, this is the optimal angle for the sonars to detect walls ahead of time, giving the bot enough time to react.
+* We're using a Jetson Nano to handle the image processing algorithms. The Jetson Nano uses a camera to detect towers and corner lines and sends the data to ESP32 via serial communication.
+* A Buck-Boost modules were used for getting a constant output of 12V for the Motor
+* Two buck module is used. One is for getting a constant 6V for the Servo, and the other one is for getting a constant 5V for the ESP32.
+* A DC Quick Charge Adapter is used to power the Jetson.
+----
+
+<img align="right" alt="NAUT" width="200" src="https://github.com/tajwarTX/test/assets/136412241/c514d1f7-fe7c-4ec6-a41e-335bd0a1764e">
+
+## Debugging
+* We're using a 7-inch Pi display to debug problems regarding the Jetson Nano and Python programs.
+* A buzzer is turned on for 200 milliseconds each time the robot detects a turn.
+* The input button's GPIO pin is also being used to control an LED that shown the current state of the robot (ie: following object, lost object etc.)
+----
+----
 ## Program infrastructure and explanation of algorithm.
 ### Qualifying Round
 #### Avoiding walls:
-<img align="right" alt="bleh" width="400" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/6fd78bbe-044a-406e-8ab0-89463a3098b5">
 The program initiates with an initial throttle value of 1 (Full forward) and a steer value of 0 (No steering). Then it evaluates each sensor, checking whether its measured distance falls below its designated maximum distance threshold. If this condition is met, the sensor's value is remapped within a range specified by a minimum and maximum value, both of which are confined to the 0-1 range. This remapping process is inversely related to distance; the closer an object is, the higher the remapped value becomes.
 
 For sensors positioned to the sides, this recalibrated value is then either added or subtracted from the existing steer value, effectively influencing the robot's lateral movement.
 
 In the case of the front sensor, its remapped value is employed to diminish the throttle value, effectively slowing the robot down as objects come closer. Additionally, it amplifies the current steer value, causing the robot to respond more rapidly and make sharper turns when objects are detected in close proximity.
-
+  
+  
+![sonarWalls drawio](https://github.com/tajwarTX/test/assets/113457396/a0d59c05-cb28-459e-abaa-6d5727e0c617)
+  
+  
 This comprehensive sensor-driven control scheme ensures that the robot can effectively navigate and respond to its environment, making it capable of avoiding obstacles and adjusting its course as needed.
 
 #### Lap count:
@@ -114,13 +162,14 @@ At present, the robot uses OpenCV for detecting red and green towers. The Jetson
 
 <img align="left" alt="METRIC" width="500" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/a00f20ec-0540-41f9-9b10-cbe79204a923">
 <img align="center" alt="METRIC" width="220" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/d5fe1201-4117-4909-a40a-e25a78df4304">
-____________The value of ‘k’ was determined by plotting real-life data from
+_________________________________________The value of ‘k’ was determined by plotting real-life data from
 experiments on a graph. In our case, the value of ‘k’ is 2141. Using this value in the equation roughly matches the real-life data.
 
 ----
+----
 
 #### Avoiding walls:
-This is done the same way as in the [qualifying round](https://github.com/A-N-M-Noor/mechaScratch_404/tree/main#avoiding-walls).
+This is done the same way as in the [qualifying round](#avoiding-walls).
 
 #### Avoiding towers:
 After obtaining the initial steer and throttle values from the sonar sensors, the program proceeds to adjust these values based on the presence of red and green towers in the environment.
@@ -132,7 +181,11 @@ The program systematically evaluates all visible towers and selects the one clos
 * **Horizontal Position Factor:** Another value ranging from 0 to 1 is determined based on the tower's horizontal position on the screen. For red towers, the program aims to make right turns, so a higher value is assigned when the tower is on the right side of the screen (influencing steering significantly), and the value decreases as the tower moves towards the left side. Conversely, for green towers, the same principle applies but with reversed sides.
 
 These two calculated values are then multiplied together, yielding a new value also ranging from 0 to 1. This new value is added to or subtracted from the existing steer value. This dynamic adjustment based on tower presence and location allows the robot to navigate and react to the positions of red and green towers, facilitating precise and adaptable movement.
-
+  
+  
+![objectDetec drawio](https://github.com/tajwarTX/test/assets/113457396/dec65b88-c363-4de4-8990-5085580df559)
+  
+  
 Right after the robot passes a tower, it steers a little bit towards the opposite of the way it was steering in order to pass that tower. For example, if the robot passes a red tower, which means it has been steering towards the right side, the robot will steer towards the left for a brief moment. This ensures that the robot will notice the next object without issues.
 
 As the robot keeps track of the blue or yellow lines placed at the corners of the track, it understands when to take a turn. Therefore, the robot takes a small turn whenever it notices a new line using its camera. It stops turning immediately when it sees a tower.
@@ -141,10 +194,13 @@ As the robot keeps track of the blue or yellow lines placed at the corners of th
 To address the possibility of collisions with walls or towers after modifying the steer and throttle values using the tower detection algorithm, the program implements continuous monitoring of distance values. If any of these values fall below a specified threshold, the program overrides the modifications made by the tower-avoidance algorithm and reverts to actions based on the distance values alone.
 
 Additionally, if any object, such as a wall or tower, approaches closer to the robot than a predefined distance threshold, the program initiates a brief backward movement. During this backward motion, the program also adjusts the steer value based on the color of the target tower. For instance, if the robot detects a red tower, it may steer left while moving backward, and for a green tower, it may steer right. This dynamic response mechanism ensures that the robot takes evasive action to avoid collisions while considering the type and location of the detected objects.
-
-
+  
+  
+![collsn drawio](https://github.com/tajwarTX/test/assets/113457396/bccb91e9-8665-4f20-887d-5661efbc8b4b)
+  
+  
 #### Lap count:
-This is done the same way as in the [qualifying round](https://github.com/A-N-M-Noor/mechaScratch_404/tree/main#lap-count).
+This is done the same way as in the [qualifying round](#lap-count).
 
 #### U-turn:
 The program keeps the history of towers it has encountered in its way. It stores them in a stack-like order. So, after the 8th turn, The robot starts looking for colored towers. There are a few possible scenarios:
@@ -155,6 +211,11 @@ The program keeps the history of towers it has encountered in its way. It stores
   - If it's red, wait until the robot gets to the middle of the section, and do a U-turn
   - If it's green, disable U-turn
 
+  
+![uTurn drawio](https://github.com/tajwarTX/test/assets/113457396/4fc33df8-5fc8-4797-91e6-dbb16c88f0ac)
+
+
+  
 After the robot makes a U-turn, it sends a flag to the Jetson to reset the turn count and flip the track direction.
 
 Once again, the ESP32's primary core handles the calculations and decision-making processes, while the secondary core is responsible for collecting data from the distance sensors and the Jetson Nano. This configuration enables the robot to react quickly and avoid collisions with walls or obstacles.
