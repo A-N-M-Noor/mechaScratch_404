@@ -1,6 +1,6 @@
 float targetThrottle = 0, throttle = 0;
 float targetSteer = 0, steer = 0; // (-)Left, (+)Right
-int pwmLimit = 200;
+int pwmLimit = 180;
 int steerAngle = 20;
 int steerMultiplier = 1; // set it to -1 if the steer is reversed
 int steerOffset = 7;
@@ -13,30 +13,30 @@ float modAcrossX, modAcrossD;
 
 int turnCount = 0;
 int totalTurns = 12;
-int scndLapTurns = 4;
-bool uTurn = true;
-bool makeUTurn = false;
-bool passedLastObj = false;
+int scndLapTurns = 4; //turns to make the u-turn after
+bool uTurn = true;  // is the robot able to make u-turn? set to false if the last object is green
+bool makeUTurn = false; //set to true when the last objet is found and it's red
+bool passedLastObj = false; //make the turn after passing the last object
 long lastTurnTimer;
-int lastTurnTime = 2200;
+int lastTurnTime = 3000;
 boolean finished = false;
-boolean lastLine = false;
+boolean lastLine = false; //not used
 boolean received = false;
 
-char fObj = 'N';
-char history[] = {'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'};
-long objPastTime = 0;
+char fObj = 'N';  //future object, not used
+char history[] = {'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'};  //object history
+long objPastTime = 0; //time after the last object
 
-int ignoreD = 7;
-int rDmin[] = {4, 4, 15, 8};    //Minimum distance range for {Side, Angle, Forward, Forward collision}
-int rDmax[] = {110, 90, 80, 40}; //Maximum distance range for {Side, Angle, Forward, Forward speed}
+int ignoreD = 7;  //ignore objects if any of the sonar's distance is less than this value
+int rDmin[] = {4, 4, 15, 12};    //Minimum distance range for {Side, Angle, Forward, Forward collision}
+int rDmax[] = {110, 90, 80, 40}; //Maximum distance range for {Side, Angle, Forward, forward speed}
 
 
 TaskHandle_t handleSonar;
 
 char objType = 'N'; // N = None, G = Green, R = Red
-char lostObj = 'N';
-char lastObj = 'N';
+char lostObj = 'N'; // last passed object
+char lastObj = 'N'; // last seen object
 long lostTimer = 0;
 int lostTime = 200;
 float lastObjSteer = -10;
@@ -50,7 +50,7 @@ float rangeAcrossX[] = {0.2, 0.85};
 float fRangeAcrossX[] = { -0.6, 0.6};
 
 int dRange[] = {10, 120};
-int FDRange[] = {40, 200};
+int FDRange[] = {45, 200};
 float rangeAcrossD[] = {1, 0.1};
 //float fRangeAcrossD[] = {0, 1};
 
@@ -103,6 +103,8 @@ int trackDir = 0; // -1: cw, +1: ccw
 // ----------------------------------- COM ----------------------------------- //
 //                               ---------------                               //
 // -------------------------------- INDICATOR -------------------------------- //
+#define RED 15
+#define GREEN 15
 #define buzz 13
 
 long buzzTimer = 0;
@@ -132,6 +134,7 @@ void setup() {
 
   Wire.begin();
   mpu.begin();
+  //mpu.calcGyroOffsets(true);
   Serial.println("Done!\n");
   digitalWrite(buzz, HIGH);
   delay(1000);
@@ -149,6 +152,7 @@ void setup() {
   pinMode(btnPin, INPUT);
   while (digitalRead(btnPin) == 0) { } // wait untill the button is pressed
   delay(300);
+  digitalWrite(GREEN, LOW);
 
   Serial2.print("S");
   serialTimer = millis();
@@ -182,17 +186,18 @@ void loop() {
     digitalWrite(buzz, HIGH);
   }
 
-  if (turnCount == scndLapTurns && uTurn) {
+  if (turnCount >= scndLapTurns && uTurn) {
     checkIfU(50);
   }
 
-  setControls();
-  modifyObs();
+  setControls(); // set controls using sonar
+  modifyObs();  // modify controls from objects
 
-  whenLost();
+  whenLost(); // after passing an object
 
   avoidCollision(rDmin, rDmax);
 
+  //manualTurn();
   targetThrottle = clamp(targetThrottle, -1, 1);
   targetSteer = clamp(targetSteer, -1, 1);
 
