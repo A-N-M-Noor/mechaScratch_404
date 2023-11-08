@@ -9,6 +9,7 @@ import numpy as np
 import serial
 from serial.tools import list_ports
 
+cutHeight = 100
 
 class vStream:
     def __init__(self,src,width=860,height=480, Type=False, blr = 5):
@@ -178,6 +179,7 @@ gotLine = False
 lineAng = 0
 trackDir = 0
 outLine = False
+lineY = 0
 
 objType = 'N'
 objPos = 0
@@ -319,6 +321,7 @@ def linesD():
     global outLineO
     global linesBlue
     global outLineB
+    global lineY
 
     _startTime=time.time()
     _dtav=0
@@ -348,7 +351,10 @@ def linesD():
 
             oLine = True if (len(linesOrng) > 0) else False
             bLine = True if (len(linesBlue) > 0) else False
-
+            lineY = 0
+            for l in (linesBlue+linesOrng):
+                if(min(l[0][1], l[1][1]) > lineY):
+                    lineY = min(l[0][1], l[1][1])
             if(firstLine == "-"):
                 if(oLine and bLine):
                     print(linesBlue)
@@ -409,7 +415,13 @@ dtav=0
 while True:
     try:
         frame = cam2.getFrame().copy()
+        
+        #borderMask = np.zeros(frame.shape[:2], dtype="uint8")
+        #cv2.rectangle(borderMask, (0, cutHeight), (frame.shape[:2][1], frame.shape[:2][0]), (255), -1)
+        #frame = cv2.bitwise_and(frame, frame, mask = borderMask)
+        
         OframeBlr = cv2.GaussianBlur(frame, (blr,blr), cv2.BORDER_DEFAULT)
+        
         hsvF = cv2.cvtColor(OframeBlr, cv2.COLOR_BGR2HSV)
         cntG, maskG = makeMask(hsvF, rngGreen[0], rngGreen[1])
         cntR, maskR = makeMask(hsvF, rngRed[0], rngRed[1])
@@ -425,7 +437,7 @@ while True:
         objDist = 200
         objList.sort(key=lambda obj:obj["dist"])
 
-        if(len(objList) > 0):
+        if(len(objList) > 0 and objList[0]["coord"][1] > lineY):
             objType = objList[0]["color"]
             objPos = int(objList[0]["pos"])
             objDist = int(clamp(objList[0]["dist"], 0, 200))
