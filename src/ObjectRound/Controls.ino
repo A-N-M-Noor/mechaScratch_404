@@ -4,8 +4,11 @@ void onTurn() {
   lastAngle = currentAngle;
   turnTimer = millis();
   //digitalWrite(buzz, HIGH);
+  buzzTimer = millis();
 }
 
+
+//not used
 void manualTurn() {
   if (millis() - turnTimer < turnTime) {
     if (objType == 'N') {
@@ -20,17 +23,22 @@ void manualTurn() {
   }
 }
 
+// after passing an object, steer slightly the opposit way
 void whenLost() {
   if (lostObj != 'N' && millis() - lostTimer > lostTime) {
+    if(millis() - turnTimer < 400){ 
+      if(trackDir == 1 && lostObj == 'G'){return;}
+      if(trackDir == -1 && lostObj == 'R'){return;} 
+    }
     long tmr = millis();
     tmr = millis();
     float _str = 0;
-    int tm = (int)clamp(mapFC(lastObjSteer, 0, 800, 0, 870), 250, 570);
-    while (millis() - tmr < tm && objType == 'N' && turnTimer != 0) {
+    int tm = (int)clamp(mapFC(lastObjSteer, 0, 800, 0, 1500), 400, 900) + 150;
+    while (millis() - tmr > 75 && millis() - tmr < tm && objType == 'N' && turnTimer != 0) {
       if (lostObj == 'R') {
-        _str = -0.75;
+        _str = -0.65;
       } else if (lostObj == 'G') {
-        _str = 0.75;
+        _str = 0.65;
       }
       setThrottleSteer(0.3, _str);
       if (obstacleIn(10, _str)) {
@@ -101,13 +109,13 @@ void modifyObs() {
   if (objType != 'N') {
     targetSteer *= 0.5; //0
     targetThrottle *= 0.6;
-    if (objDist > followD) {
+    if (objDist > followD) {  //follow object
       modAcrossD = 1;
       int cPos = scrPos(objType);
       modAcrossX = mapFC(objPos, max(-30, cPos - 100), min(230, cPos + 100), fRangeAcrossX[0], fRangeAcrossX[1]);
 
     }
-    else {
+    else { //avoid objects
       if (lastObjSteer < 0) {
         lastObjSteer = 0;
       }
@@ -119,7 +127,7 @@ void modifyObs() {
         modAcrossX = -mapFC(objPos, xRange[0], xRange[1], rangeAcrossX[1], rangeAcrossX[0]);
       }
       delay(2);
-      lastObjSteer += (modAcrossX * modAcrossD + targetSteer) * targetThrottle * float(dt);
+      lastObjSteer += (modAcrossX * modAcrossD) * targetThrottle * float(dt);
     }
   } else {
     digitalWrite(btnPin, LOW);

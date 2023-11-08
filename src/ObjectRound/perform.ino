@@ -1,8 +1,8 @@
 void doUTurn(){
   digitalWrite(buzz, HIGH);
   long tmr = millis();
-  while(millis() - tmr < 600){
-    setThrottleSteer(0.6, -1);
+  while(millis() - tmr < 1600){
+    setThrottleSteer(0.6, -0.75);
     if(obstacleIn(8, 5)){
       setThrottleSteer(-0.6, 0);
       tmr += 700;
@@ -10,7 +10,7 @@ void doUTurn(){
     }
   }
   tmr = millis();
-  while(millis() - tmr < 600){
+  while(millis() - tmr < 1000){
     setThrottleSteer(0.35, -1);
     if(obstacleIn(8, 5)){
       setThrottleSteer(-0.4, 0);
@@ -20,12 +20,17 @@ void doUTurn(){
   }
 
   tmr = millis();
-  while(millis() - tmr < 600){
+  while(millis() - tmr < 1000){
     setThrottleSteer(0.35, -1);
     if(objType != 'N'){
       break;
     }
   }
+  tmr = millis();
+  while(millis() - tmr < 800){
+    setThrottleSteer(-0.6, 0);
+  }
+  tmr = millis();
   uTurn = false;
   makeUTurn = false;
   passedLastObj = false;
@@ -33,6 +38,9 @@ void doUTurn(){
   trackDir *= -1;
   totalTurns = 4;
   turnCount = 0;
+  while(millis() - tmr < 800){
+    setThrottleSteer(0, 0);
+  }
 }
 
 void followObj(char obj, int dst){
