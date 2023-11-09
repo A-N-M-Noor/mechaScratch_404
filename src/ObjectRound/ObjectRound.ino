@@ -1,6 +1,6 @@
 float targetThrottle = 0, throttle = 0;
 float targetSteer = 0, steer = 0; // (-)Left, (+)Right
-int pwmLimit = 180;
+int pwmLimit = 170;
 int steerAngle = 20;
 int steerMultiplier = 1; // set it to -1 if the steer is reversed
 int steerOffset = 7;
@@ -11,24 +11,32 @@ float steerSmoothing = 0.8;
 float steerObstacle = 0;
 float modAcrossX, modAcrossD;
 
+bool strt = false;
 int turnCount = 0;
 int totalTurns = 12;
-int scndLapTurns = 4; //turns to make the u-turn after
+int scndLapTurns = 8; //turns to make the u-turn after
+bool justTurned = false;
 bool uTurn = true;  // is the robot able to make u-turn? set to false if the last object is green
 bool makeUTurn = false; //set to true when the last objet is found and it's red
 bool passedLastObj = false; //make the turn after passing the last object
+bool firstObjIn = false;
 long lastTurnTimer;
-int lastTurnTime = 3000;
+int lastTurnTime = 3700;
+long uTurnTimer;
+int uTurnTime = 4000;
+char lstObj7 = 'N';
 boolean finished = false;
 boolean lastLine = false; //not used
 boolean received = false;
+
+long lastGrnTmr = 0;
 
 char fObj = 'N';  //future object, not used
 char history[] = {'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'};  //object history
 long objPastTime = 0; //time after the last object
 
 int ignoreD = 7;  //ignore objects if any of the sonar's distance is less than this value
-int rDmin[] = {4, 4, 15, 12};    //Minimum distance range for {Side, Angle, Forward, Forward collision}
+int rDmin[] = {4, 4, 8, 12};    //Minimum distance range for {Side, Angle, Forward, Forward collision}
 int rDmax[] = {110, 90, 80, 40}; //Maximum distance range for {Side, Angle, Forward, forward speed}
 
 
@@ -151,6 +159,7 @@ void setup() {
 
   pinMode(btnPin, INPUT);
   while (digitalRead(btnPin) == 0) { } // wait untill the button is pressed
+  delay(700);
   delay(300);
   digitalWrite(GREEN, LOW);
 
@@ -159,6 +168,9 @@ void setup() {
 
   getMPU();
   lastAngle = currentAngle;
+  if(objType != 'N' && objDist < 30){
+    firstObjIn = true;
+  }
 
   pinMode(btnPin, OUTPUT);
   dTmr = millis();
@@ -174,7 +186,7 @@ void loop() {
   } else if (!finished) {
     digitalWrite(buzz, LOW);
   }
-  if (millis() - ledTimer < 500 || history[1] == 'R') {
+  if (millis() - ledTimer < 500 || makeUTurn == 'R') {
     digitalWrite(btnPin, HIGH);
   } else {
     digitalWrite(btnPin, LOW);
@@ -185,15 +197,26 @@ void loop() {
     lastTurnTimer = millis();
     digitalWrite(buzz, HIGH);
   }
-
-  if (turnCount >= scndLapTurns && uTurn) {
-    checkIfU(50);
+//  if(turnCount == scndLapTurns && objType == 'G' && objDist < 65 && millis() - turnTimer < 2000){
+  if(turnCount == scndLapTurns && ((objType == 'G' && objDist < 65 && millis() - turnTimer < 2000) || objType == 'G' && fObj == 'G')){
+    uTurn = false;
   }
 
+  if(justTurned && uTurn){
+    if(firstObjIn && turnCount == scndLapTurns){
+      makeUTurn = true;
+      uTurnTimer = millis();
+    }
+    if(!firstObjIn && turnCount == scndLapTurns+1){
+      makeUTurn = true;
+      uTurnTimer = millis()-uTurnTime;
+    }
+    justTurned = false;
+  }
   setControls(); // set controls using sonar
   modifyObs();  // modify controls from objects
 
-  whenLost(); // after passing an object
+  if(!makeUTurn) {whenLost();} // after passing an object 
 
   avoidCollision(rDmin, rDmax);
 
@@ -207,8 +230,12 @@ void loop() {
   throttle = clamp(throttle, -1, 0.6);
   setThrottleSteer(throttle, steer);
 
+  if (makeUTurn && millis() - uTurnTimer > uTurnTime) {
+    doUTurn(true);
+  }
+  
   if (finished && millis() - lastTurnTimer > lastTurnTime) {
-    for (float i = 0; i < 0.5; i += 0.1) {
+    for (float i = 0; i < 0.5; i += 0.2) {
       setThrottleSteer(-i, 0); // stop the car
       delay(1);
     }
