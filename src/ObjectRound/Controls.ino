@@ -5,10 +5,9 @@ void onTurn() {
   turnTimer = millis();
   //digitalWrite(buzz, HIGH);
   buzzTimer = millis();
+  justTurned = true;
 }
 
-
-//not used
 void manualTurn() {
   if (millis() - turnTimer < turnTime) {
     if (objType == 'N') {
@@ -23,18 +22,21 @@ void manualTurn() {
   }
 }
 
-// after passing an object, steer slightly the opposit way
 void whenLost() {
   if (lostObj != 'N' && millis() - lostTimer > lostTime) {
-    if(millis() - turnTimer < 400){ 
-      if(trackDir == 1 && lostObj == 'G'){return;}
-      if(trackDir == -1 && lostObj == 'R'){return;} 
+    if (millis() - turnTimer < 400) {
+      if (trackDir == 1 && lostObj == 'G') {
+        return;
+      }
+      if (trackDir == -1 && lostObj == 'R') {
+        return;
+      }
     }
     long tmr = millis();
     tmr = millis();
     float _str = 0;
-    int tm = (int)clamp(mapFC(lastObjSteer, 0, 800, 0, 1500), 400, 900) + 150;
-    while (millis() - tmr > 75 && millis() - tmr < tm && objType == 'N' && turnTimer != 0) {
+    int tm = (int)clamp(mapFC(lastObjSteer, 0, 800, 0, 1500), 400, 900) + 300;
+    while (millis() - tmr > 300 && millis() - tmr < tm && objType == 'N' && turnTimer != 0) {
       if (lostObj == 'R') {
         _str = -0.65;
       } else if (lostObj == 'G') {
@@ -53,7 +55,7 @@ void whenLost() {
           break;
         }
       }
-    }*/
+      }*/
     lostObj = 'N';
     lastObjSteer = -10;
   }
@@ -109,22 +111,22 @@ void modifyObs() {
   if (objType != 'N') {
     targetSteer *= 0.5; //0
     targetThrottle *= 0.6;
-    if (objDist > followD) {  //follow object
+    if (objDist > followD) {
       modAcrossD = 1;
       int cPos = scrPos(objType);
       modAcrossX = mapFC(objPos, max(-30, cPos - 100), min(230, cPos + 100), fRangeAcrossX[0], fRangeAcrossX[1]);
 
     }
-    else { //avoid objects
+    else {
       if (lastObjSteer < 0) {
         lastObjSteer = 0;
       }
       modAcrossD = mapFC(objDist, dRange[0], dRange[1], rangeAcrossD[0], rangeAcrossD[1]);
       if (objType == 'R') {
-        modAcrossX = mapFC(objPos, xRange[0], xRange[1], rangeAcrossX[0], rangeAcrossX[1]);
+        modAcrossX = mapFC(objPos, xRange[0], xRange[1], rangeAcrossX[0], rangeAcrossX[1]) * 1.25;
       }
       if (objType == 'G') {
-        modAcrossX = -mapFC(objPos, xRange[0], xRange[1], rangeAcrossX[1], rangeAcrossX[0]);
+        modAcrossX = -mapFC(objPos, xRange[0], xRange[1], rangeAcrossX[1], rangeAcrossX[0]) * 0.75;
       }
       delay(2);
       lastObjSteer += (modAcrossX * modAcrossD) * targetThrottle * float(dt);
@@ -153,6 +155,7 @@ void avoidCollision(int _rDmin[], int _rDmax[]) {
       setThrottleSteer(-0.6, _str);
       getMPU();
     }
+    Serial2.write("<700>");
     setThrottleSteer(0, 0);
     delay(500);
   }

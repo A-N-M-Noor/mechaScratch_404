@@ -1,33 +1,42 @@
-void doUTurn(){
+void doUTurn(bool goB){
+  Serial2.print("B");
   digitalWrite(buzz, HIGH);
   long tmr = millis();
-  while(millis() - tmr < 1600){
-    setThrottleSteer(0.6, -0.75);
+  while(millis() - tmr < 700){
+    setThrottleSteer(-0.6, 1);
     if(obstacleIn(8, 5)){
       setThrottleSteer(-0.6, 0);
       tmr += 700;
-      delay(700);
     }
   }
   tmr = millis();
-  while(millis() - tmr < 1000){
+  while(millis() - tmr < 1700){
+    setThrottleSteer(0.6, -1);
+    if(obstacleIn(8, 5)){
+      setThrottleSteer(-0.6, 0);
+      tmr += 700;
+      //delay(700);
+    }
+  }
+  tmr = millis();
+  /*while(millis() - tmr < 1000){
     setThrottleSteer(0.35, -1);
     if(obstacleIn(8, 5)){
       setThrottleSteer(-0.4, 0);
       tmr += 700;
       delay(700);
     }
-  }
+  }*/
 
   tmr = millis();
-  while(millis() - tmr < 1000){
+  /*while(millis() - tmr < 1000){
     setThrottleSteer(0.35, -1);
     if(objType != 'N'){
       break;
     }
-  }
+  }*/
   tmr = millis();
-  while(millis() - tmr < 800){
+  while(millis() - tmr < 400){
     setThrottleSteer(-0.6, 0);
   }
   tmr = millis();

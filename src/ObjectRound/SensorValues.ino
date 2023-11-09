@@ -50,6 +50,18 @@ void getSerialInfo() {
 
     else {
       switch (key) {
+        case 2:
+          if (val == 51) {
+            fObj = 'R';
+            
+          }
+          if (val == 52) {
+            fObj = 'N';
+          }
+          if (val == 53) {
+            fObj = 'G';
+          }
+          break;
         case 5:
           if (val == 51) {
             thisObj = 'R';
@@ -104,6 +116,11 @@ void getSerialInfo() {
           }
           else {
             lastLine = false;
+          }
+          break;
+        case 12:
+          if (val == 51) {
+            lstObj7 = 'R';
           }
           break;
       }
