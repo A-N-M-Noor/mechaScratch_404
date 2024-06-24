@@ -59,7 +59,7 @@ We've made our robot totally from scratch. Most of the parts of our robot are 3D
 
 ## Robot's Chassis
 
-<img align="right" width="300" src="https://github.com/tajwarTX/test/assets/136412241/39e26ddb-3f46-42b6-b22c-9f7664d12bb7">
+<img align="right" width="300" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/1147a3d3-bce7-466d-a71c-fe9b41101745">
 
 
 The chassis of our robot, primarily composed of 3D-printed parts, serves as the robust foundation for all hardware and electronic components. Custom-designed to accommodate our specific needs, each piece has been modeled to interlock seamlessly, providing a lightweight yet durable structure. The modular nature of the 3D-printed chassis allows for easy customization and scalability. It has been engineered to house the motors, electronics, and battery, ensuring proper heat dissipation and weight distribution for optimal performance. This approach not only allows for rapid prototyping and iterative design but also ensures that parts can be replaced or upgraded with minimal effort as the robot evolves. 
