@@ -25,9 +25,10 @@ Here, `(2x)` indicates this model needs to be printed twice. And `(Mid)` indicat
 
 ## Assembly steps
 
+
 | 1. Assemble the gearbox:                           | 2. Assemble the wheel:            |
 | -------------------------------------------------- | ----------------------------------------------------------- |
-| <img align="center" alt="NAUT" width="400" src="https://github.com/tajwarTX/test/assets/136412241/7ea58941-e8cf-4bf9-942d-1489e29b7e60"> | <img align="center" alt="NAUT" width="400" src="https://github.com/tajwarTX/test/assets/136412241/e6379546-ba22-4450-9c88-ea8ef2591791">
+| <img align="center" alt="NAUT" width="400" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/538b57c9-4ea9-4be1-865f-aab5998021e8"> | <img align="center" alt="NAUT" width="400" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/1cf24dc4-8431-4180-b8a1-52d9766d5a96">
 
 | 3. Assemble the steering mechanism:                | 4. Assemble the base plate:            |
 | -------------------------------------------------- | ----------------------------------------------------------- |
