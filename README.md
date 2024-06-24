@@ -135,7 +135,7 @@ The fundamental idea behind Ackerman steering is that the inner and outer wheels
 
 ----
 
-<img align="right" alt="NAUT" width="200" src="https://github.com/tajwarTX/test/assets/136412241/c514d1f7-fe7c-4ec6-a41e-335bd0a1764e">
+<img align="right" alt="NAUT" width="200" src="https://github.com/A-N-M-Noor/mechaScratch_404/assets/136412241/d7784268-6071-420d-9076-bd478ede7b53">
 
 ## Debugging
 * We're using a 7-inch Pi display to debug problems regarding the Jetson Nano and Python programs.
