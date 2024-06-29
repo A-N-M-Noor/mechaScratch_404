@@ -153,7 +153,8 @@ For sensors positioned to the sides, this recalibrated value is then either adde
 In the case of the front sensor, its remapped value is employed to diminish the throttle value, effectively slowing the robot down as objects come closer. Additionally, it amplifies the current steer value, causing the robot to respond more rapidly and make sharper turns when objects are detected in close proximity.
   
   
-![sonarWalls drawio](https://github.com/tajwarTX/test/assets/113457396/a0d59c05-cb28-459e-abaa-6d5727e0c617)
+![sonarWalls drawio](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/44b091c2-8afa-4afe-91a4-617e8e871f06)
+
   
   
 This comprehensive sensor-driven control scheme ensures that the robot can effectively navigate and respond to its environment, making it capable of avoiding obstacles and adjusting its course as needed.
@@ -194,7 +195,7 @@ The program systematically evaluates all visible towers and selects the one clos
 These two calculated values are then multiplied together, yielding a new value also ranging from 0 to 1. This new value is added to or subtracted from the existing steer value. This dynamic adjustment based on tower presence and location allows the robot to navigate and react to the positions of red and green towers, facilitating precise and adaptable movement.
   
   
-![objectDetec drawio](https://github.com/tajwarTX/test/assets/113457396/dec65b88-c363-4de4-8990-5085580df559)
+![objectDetec drawio](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/2fff88da-42fe-4e1e-a829-5d6c5c4242fc)
   
   
 Right after the robot passes a tower, it steers a little bit towards the opposite of the way it was steering in order to pass that tower. For example, if the robot passes a red tower, which means it has been steering towards the right side, the robot will steer towards the left for a brief moment. This ensures that the robot will notice the next object without issues.
@@ -207,7 +208,7 @@ To address the possibility of collisions with walls or towers after modifying th
 Additionally, if any object, such as a wall or tower, approaches closer to the robot than a predefined distance threshold, the program initiates a brief backward movement. During this backward motion, the program also adjusts the steer value based on the color of the target tower. For instance, if the robot detects a red tower, it may steer left while moving backward, and for a green tower, it may steer right. This dynamic response mechanism ensures that the robot takes evasive action to avoid collisions while considering the type and location of the detected objects.
   
   
-![collsn drawio](https://github.com/tajwarTX/test/assets/113457396/bccb91e9-8665-4f20-887d-5661efbc8b4b)
+![collsn drawio](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/a3271587-78db-4ccc-b0eb-dc37d9c5b625)
   
   
 #### Lap count:
@@ -223,7 +224,7 @@ The program keeps the history of towers it has encountered in its way. It stores
   - If it's green, disable U-turn
 
   
-![uTurn drawio](https://github.com/tajwarTX/test/assets/113457396/4fc33df8-5fc8-4797-91e6-dbb16c88f0ac)
+![uTurn drawio](https://github.com/A-N-M-Noor/mechaScratch_404/assets/113457396/f0804401-2558-4540-95ad-0f3a820889aa)
 
 
   
